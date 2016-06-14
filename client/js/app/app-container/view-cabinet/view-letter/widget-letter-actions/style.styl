@@ -1,0 +1,46 @@
+.w-letter-actions
+  display: block
+  float: left
+
+  &-cont
+    font-size: 0
+
+  &-refresh
+  &-trash
+    font-size: 1rem
+    display: inline-block
+    vertical-align: middle
+    width: 60px
+    border-radius: 3px
+    height: 35px
+    line-height: (@height - 2px)
+    font-weight: 500
+    margin-right: (5/16)rem
+
+    &__icn
+      width: 20px
+      height: 20px
+      margin: 0 auto
+      display: block
+      fill: currentColor
+
+    &:disabled
+      opacity: .6
+      cursor: default
+      background-color: inherit !important
+
+  &-refresh
+    border: 1px solid #ccc
+    background-color: #fff
+    color: #333
+
+    &:hover
+      background-color: #ebebeb
+
+  &-trash
+    background-color: #fff
+    border: 1px solid currentColor
+    color: #e95a40
+
+    &:hover
+      background-color: #fce0da

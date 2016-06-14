@@ -1,0 +1,22 @@
+<p ng-show="$ctrl.loading" class="letter-details__loader">Retrieving details...</p>
+<div class="letter-details-cont" ng-hide="$ctrl.loading">
+  <div class="letter-details-head">
+    <div class="letter-details-ava">
+      <p class="letter-details-img">
+        <svg class="letter-details-img__icn">
+          <use xlink:href="assets/img/sprite.svg#user"></use>
+        </svg>
+      </p>
+    </div>
+    <p class="letter-details-author">
+      <a ng-href="{{$ctrl.letter.to}}" class="letter-details-author__mail">{{$ctrl.letter.to}}</a>
+    </p>
+    <p class="letter-details-date">
+      <time class="letter-details-date__time">{{$ctrl.formatDate($ctrl.letter.created)}}</time>
+    </p>
+  </div>
+
+  <div class="letter-details-body">
+    <p>{{$ctrl.letter.body}}</p>
+  </div>
+</div>

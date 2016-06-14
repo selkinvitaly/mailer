@@ -1,0 +1,20 @@
+<div class="w-mailboxes-cont">
+  <div class="w-mailboxes-head">
+    <button class="w-mailboxes-write" ng-click="$ctrl.writeHandler()">
+      <svg class="w-mailboxes-write__icn">
+        <use xlink:href="assets/img/sprite.svg#write"></use>
+      </svg>
+      <span class="w-mailboxes-write__txt">Write message!</span>
+    </button>
+  </div>
+
+  <div class="w-mailboxes-lst">
+
+    <a ui-sref="cabinet.mailbox({ mailboxid: mailbox._id, page: null })" ng-repeat="mailbox in $ctrl.mailboxes track by mailbox._id" ng-class="{'w-mailboxes-itm_active': $ctrl.isSelected(mailbox._id)}" class="w-mailboxes-itm">
+      <span class="w-mailboxes-itm__txt">{{mailbox.title}}</span>
+      <span class="w-mailboxes-itm__cnt">{{$ctrl.getCountById(mailbox._id)}}</span>
+    </a>
+
+  </div>
+
+</div>

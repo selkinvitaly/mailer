@@ -1,0 +1,8 @@
+<div class="w-notify-lst">
+  <p class="w-notify-itm" ng-click="$ctrl.closeHandler(notice.id)" ng-repeat="notice in $ctrl.notifications track by notice.id">
+    <span class="w-notify-itm__msg">{{notice.message}}</span>
+    <svg class="w-notify-itm__icn">
+      <use xlink:href="assets/img/sprite.svg#cross"></use>
+    </svg>
+  </p>
+</div>

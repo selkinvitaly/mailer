@@ -1,0 +1,35 @@
+.w-contacts-actions
+  display: block
+  float: left
+
+  &-cont
+    font-size: 0
+
+  &-refresh
+    font-size: 1rem
+    display: inline-block
+    vertical-align: middle
+    width: 60px
+    border-radius: 3px
+    height: 35px
+    line-height: (@height - 2px)
+    font-weight: 500
+    margin-right: (5/16)rem
+    border: 1px solid #ccc
+    background-color: #fff
+    color: #333
+
+    &:hover
+      background-color: #ebebeb
+
+    &__icn
+      width: 20px
+      height: 20px
+      margin: 0 auto
+      display: block
+      fill: currentColor
+
+    &:disabled
+      opacity: .6
+      cursor: default
+      background-color: inherit !important

@@ -1,0 +1,79 @@
+ctrl-checkbox()
+  width: 18px
+  height: 18px
+  background-position: center
+  background-repeat: no-repeat
+  background-size: contain
+
+ctrl-checkbox-on()
+  background-image: url("./checkbox-checked.svg")
+
+ctrl-checkbox-off()
+  background-image: url("./checkbox.svg")
+  ctrl-checkbox()
+
+.w-mailbox-actions
+  display: block
+  float: left
+
+  &-cont
+    font-size: 0
+
+  &-refresh
+  &-choose
+  &-trash
+  &-cleanup
+    font-size: 1rem
+    display: inline-block
+    vertical-align: middle
+    width: 60px
+    border-radius: 3px
+    height: 35px
+    line-height: (@height - 2px)
+    font-weight: 500
+    margin-right: (5/16)rem
+
+    &:disabled
+      opacity: .6
+      cursor: default
+      background-color: inherit !important
+
+  &-choose
+    &__icn
+      width: 20px
+      height: 20px
+      margin: 0 auto
+      display: block
+
+      ctrl-checkbox-off()
+
+    &_active &__icn
+      ctrl-checkbox-on()
+
+  &-refresh
+  &-trash
+  &-cleanup
+    &__icn
+      width: 20px
+      height: 20px
+      margin: 0 auto
+      display: block
+      fill: currentColor
+
+  &-refresh
+  &-choose
+    border: 1px solid #ccc
+    background-color: #fff
+    color: #333
+
+    &:hover
+      background-color: #ebebeb
+
+  &-trash
+  &-cleanup
+    background-color: #fff
+    border: 1px solid currentColor
+    color: #e95a40
+
+    &:hover
+      background-color: #fce0da

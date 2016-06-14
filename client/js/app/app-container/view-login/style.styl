@@ -1,0 +1,97 @@
+@keyframes bubbles {
+  100% {
+    transform: translateY(-350px)
+  }
+}
+
+.b-login
+  width: 100%
+  position: absolute
+  top: 50%
+  height: 350px
+  margin-top: -(@height / 2)
+  background-color: #ff6347
+  overflow: hidden
+
+  &-shapes
+    display: block
+    list-style: none
+
+    li
+      display: block
+      position: absolute
+      bottom: 0
+      background-color: rgba(#e25036, .3)
+      animation: bubbles 25s infinite
+      animation-timing-function: linear
+
+      siz = 10px 20px 70px 30px 50px 60px 90px 25px 40px 30px
+      deg = 45deg 60deg 5deg 25deg 65deg 75deg 95deg 35deg 50deg 43deg
+      pos = 50px 120px 200px 320px 430px 550px 650px 820px 900px 1070px
+      dur = 25s 25s 17s 25s 13s 25s 26s 25s 10s 8s
+      del = 0s 2s 3s 0s 10s 0s 6s 0s 10s 16s
+
+      for i in (1..10)
+        &:nth-child({i})
+          width: siz[i - 1]
+          height: siz[i - 1]
+          left: pos[i - 1]
+          transform: translateY(120px) rotate(deg[i - 1])
+          animation-delay: del[i - 1]
+          animation-duration: dur[i - 1]
+
+  &-cont
+    height: 220px
+    position: relative
+    margin-top: -(@height / 2)
+    top: 50%
+
+  &-form
+    width: 220px
+    margin: 0 auto
+    position: relative
+    z-index: 1
+
+  &__greeting
+    text-align: center
+    font-size: 3rem
+    font-weight: 300
+    line-height: 1
+    margin-bottom: .5rem
+    color: #fff
+
+  &-email
+  &-pw
+    margin-bottom: (10/16)rem
+
+    &__input
+      height: 47px
+      border: 1px solid #fff
+      width: 100%
+      border-radius: 3px
+      background-color: rgba(#c44c37, .7)
+      text-align: center
+      color: #fff
+      transition: background-color .3s 0s
+
+      &::placeholder
+        color: inherit
+
+      &:hover
+        background-color: #bb4934
+
+      &:focus
+        background-color: #fff
+        color: #bb4934
+
+  &-send
+    &__btn
+      height: 47px
+      width: 100%
+      text-align: center
+      border-radius: 3px
+      background-color: #fff
+      color: #bb4934
+
+      &:hover
+        opacity: .9

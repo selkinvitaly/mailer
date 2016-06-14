@@ -1,0 +1,75 @@
+.w-cleanup
+  display: none
+  width: 100%
+  height: 100%
+  position: fixed
+  z-index: 999
+  background-color: rgba(#000, .5)
+
+  &_opened
+    display: block
+
+  &-win
+    position: relative
+    width: 400px
+    height: 150px
+    margin: 0 auto
+    top: 50%
+    margin-top: -(@height / 2)
+    background-color: #fff
+    border: 2px solid #ff6347
+    font-weight: 300
+
+  &-close
+    position: absolute
+    top: (10/16)rem
+    right: (10/16)rem
+    width: 12px
+    height: @width
+    color: #333
+    display: block
+    padding: 0
+    background: transparent
+    transition: color .3s
+
+    &:hover
+      color: #bb4934
+
+    &__icn
+      display: block
+      width: 100%
+      height: 100%
+      fill: currentColor
+
+  &-desc
+    padding: (35/16)rem (20/16)rem 0
+    margin-bottom: .5rem
+
+  &-btn
+    text-align: center
+
+    &__yes
+    &__no
+      background: transparent
+      width: 60px
+      height: 35px
+      border-radius: 3px
+      line-height: (@height - 2px)
+      font-weight: 500
+
+    &__yes
+      background-color: #fff
+      border: 1px solid currentColor
+      color: #e95a40
+      margin-right: 1rem
+
+      &:hover
+        background-color: #fce0da
+
+    &__no
+      border: 1px solid #ccc
+      background-color: #fff
+      color: #333
+
+      &:hover
+        background-color: #ebebeb

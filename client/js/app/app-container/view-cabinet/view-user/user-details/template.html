@@ -1,0 +1,31 @@
+<p ng-show="$ctrl.loading" class="user-details__loader">Retrieving...</p>
+<div class="user-details-cont" ng-hide="$ctrl.loading">
+  <div class="user-details-ava">
+    <img class="user-details-ava__img" ng-src="{{$ctrl.user.avatarUrl || 'assets/img/main/default-avatar.svg'}}" alt="" />
+  </div>
+
+  <div class="user-details-info">
+    <h3 class="user-details-name">{{$ctrl.user.fullName}}</h3>
+    <ul class="user-details-info-lst">
+      <li class="user-details-email">
+        <span class="user-details-email__label">Email:</span>
+        <a ng-href="mailto: {{$ctrl.user.email}}" class="user-details-email__val">{{$ctrl.user.email}}</a>
+      </li>
+
+      <li class="user-details-address">
+        <span class="user-details-address__label">Address:</span>
+        <span class="user-details-address__val">{{$ctrl.user.address}}</span>
+      </li>
+
+      <li class="user-details-bday">
+        <span class="user-details-bday__label">Birthday:</span>
+        <span class="user-details-bday__val">{{$ctrl.formatDate($ctrl.user.birthdate)}}</span>
+      </li>
+
+      <li class="user-details-created">
+        <span class="user-details-created__label">Created:</span>
+        <span class="user-details-created__val">{{$ctrl.formatDate($ctrl.user.created)}}</span>
+      </li>
+    </ul>
+  </div>
+</div>

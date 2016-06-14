@@ -1,0 +1,33 @@
+<div class="b-login">
+  <div class="b-login-cont">
+    <h1 class="b-login__greeting">Welcome</h1>
+
+    <form class="b-login-form" ng-submit="$ctrl.onSubmit($event)" method="post" action="/api/login">
+      <p class="b-login-email">
+        <input class="b-login-email__input" ng-model="$ctrl.email" type="email" name="email" placeholder="Email" required />
+      </p>
+
+      <p class="b-login-pw">
+        <input class="b-login-pw__input" ng-model="$ctrl.password" type="password" name="password" placeholder="Password" required />
+      </p>
+
+      <p class="b-login-send">
+        <input class="b-login-send__btn" type="submit" ng-disabled="{{$ctrl.disabled}}" value="{{$ctrl.label}}" />
+      </p>
+    </form>
+  </div>
+
+  <ul class="b-login-shapes">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+</div>

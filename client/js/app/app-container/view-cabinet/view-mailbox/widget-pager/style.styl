@@ -1,0 +1,47 @@
+.w-pager
+  float: right
+
+  &-cont
+    font-size: 0
+
+  &-label
+    font-size: 1rem
+    font-weight: 300
+    color: #333
+    vertical-align: middle
+    margin-right: (10/16)rem
+
+  &-prev
+  &-next
+    font-size: 1rem
+    display: inline-block
+    vertical-align: middle
+    width: 60px
+    height: 35px
+    line-height: (@height - 2px)
+    border: 1px solid #ccc
+    background-color: #fff
+    color: #333
+
+    &:hover
+      background-color: #ebebeb
+
+    &:disabled
+      opacity: .6
+      cursor: default
+      background-color: inherit !important
+
+    &__icn
+      width: 20px
+      margin: 0 auto
+      height: 20px
+      display: block
+      fill: currentColor
+
+  &-prev
+    border-radius: 0 3px 3px 0
+    transform: rotate(180deg)
+    border-left: none
+
+  &-next
+    border-radius: 0 3px 3px 0

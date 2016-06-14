@@ -1,0 +1,10 @@
+<div class="w-tabs-cont">
+  <ul class="w-tabs-lst">
+    <li class="w-tabs-itm" ng-class="{'w-tabs-itm_active': $ctrl.isLetters}">
+      <a class="w-tabs-itm__lnk" ui-sref="cabinet.mailbox({ mailboxid: $ctrl.getMailboxid() })">Letters</a>
+    </li>
+    <li class="w-tabs-itm" ng-class="{'w-tabs-itm_active': $ctrl.isContacts}">
+      <a class="w-tabs-itm__lnk" ui-sref="cabinet.contacts()">Contacts</a>
+    </li>
+  </ul>
+</div>

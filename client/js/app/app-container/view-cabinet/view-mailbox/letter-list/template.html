@@ -1,0 +1,22 @@
+<div class="w-letters-cont">
+
+  <p class="w-letters__empty" ng-show="$ctrl.isEmpty">Letters not found! :(</p>
+  <p class="w-letters__loader" ng-show="$ctrl.loading">Retrieving letters...</p>
+
+  <ul class="w-letters-lst" ng-hide="$ctrl.isEmpty || $ctrl.loading">
+    <li class="w-letters-itm" ng-class="{'w-letters-itm_selected': $ctrl.isSelected(letter._id)}" ng-repeat="letter in $ctrl.letters track by letter._id">
+
+      <time class="w-letters-itm__date">{{$ctrl.formatDate(letter.created)}}</time>
+
+      <button ng-click="$ctrl.chooseHandler(letter._id)" class="w-letters-choose"></button>
+
+      <a ui-sref="cabinet.letter({ mailboxid: letter.mailbox, letterid: letter._id })" class="w-letters-desc">
+        <span class="w-letters-desc__name">{{letter.to}}</span>
+        <span class="w-letters-desc__subj">{{letter.subject}}</span>
+        <span class="w-letters-desc__msg">- {{letter.body}}</span>
+      </a>
+
+    </li>
+  </ul>
+
+</div>

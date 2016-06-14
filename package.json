@@ -1,0 +1,73 @@
+{
+  "name": "mailer",
+  "version": "1.0.0",
+  "description": "The simple mail application",
+  "scripts": {
+    "build:clean": "./node_modules/.bin/gulp build:clean",
+    "build:dev": "./node_modules/.bin/gulp build",
+    "build:prod": "NODE_ENV=production ./node_modules/.bin/gulp build",
+    "build:watch": "WATCH=true ./node_modules/.bin/gulp build:watch",
+    "server:dev": "NODE_PATH=./server/libs:./server/modules MONGOOSE_DEBUG=true node ./server/bin/server",
+    "server:watch": "NODE_PATH=./server/libs:./server/modules MONGOOSE_DEBUG=true nodemon ./server/bin/server",
+    "db:fixtures": "NODE_PATH=./server/libs:./server/modules ./node_modules/.bin/gulp db:fixtures"
+  },
+  "main": "client/js/app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selkinvitaly/mailer.git"
+  },
+  "author": "Selkin Vitaly <contact@selkinvitaly.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/selkinvitaly/mailer/issues"
+  },
+  "homepage": "https://github.com/selkinvitaly/mailer",
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015-webpack": "^6.4.1",
+    "browser-sync": "^2.12.10",
+    "co": "^4.6.0",
+    "css-loader": "^0.23.1",
+    "del": "^2.2.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-base64": "^0.1.3",
+    "gulp-changed": "^1.3.0",
+    "gulp-csscomb": "^3.0.7",
+    "gulp-if": "^2.0.1",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-stylus": "^2.4.0",
+    "gulp-svg-sprite": "^1.3.1",
+    "gulp-util": "^3.0.7",
+    "html-loader": "^0.4.3",
+    "ng-annotate-webpack-plugin": "^0.1.3",
+    "postcss-loader": "^0.9.1",
+    "style-loader": "^0.13.1",
+    "stylus-loader": "^2.1.0",
+    "svg-url-loader": "^1.0.3",
+    "svgo-loader": "^1.1.0",
+    "webpack": "^2.1.0-beta.8"
+  },
+  "private": true,
+  "dependencies": {
+    "angular": "^1.5.6",
+    "angular-ui-router": "^1.0.0-alpha.5",
+    "config": "^1.21.0",
+    "jade": "^1.11.0",
+    "koa": "^1.2.0",
+    "koa-bodyparser": "^2.2.0",
+    "koa-generic-session": "^1.10.2",
+    "koa-logger": "^1.3.0",
+    "koa-passport": "^1.3.1",
+    "koa-router": "^5.4.0",
+    "koa-session-mongoose": "^1.0.0",
+    "koa-static": "^2.0.0",
+    "mongoose": "^4.4.19",
+    "mongoose-validator": "^1.2.5",
+    "passport-local": "^1.0.0"
+  }
+}

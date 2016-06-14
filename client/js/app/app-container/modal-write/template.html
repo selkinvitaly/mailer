@@ -1,0 +1,30 @@
+<div class="w-write-win" ng-click="$ctrl.preventBubbling($event)">
+  <button class="w-write-close" ng-click="$ctrl.close()">
+    <svg class="w-write-close__icn">
+      <use xlink:href="assets/img/sprite.svg#cross"></use>
+    </svg>
+  </button>
+
+  <h3 class="w-write__title">Create new letter:</h3>
+
+  <form class="w-write-form" ng-submit="$ctrl.submitHandler()">
+    <p class="w-write-subject">
+      <input class="w-write-subject__input" ng-model="$ctrl.newLetter.subject" type="text" placeholder="Subject" required />
+    </p>
+    <p class="w-write-to">
+      <input class="w-write-to__input" ng-model="$ctrl.newLetter.to" type="email" placeholder="Email" required />
+    </p>
+    <p class="w-write-body">
+      <textarea class="w-write-body__input" ng-model="$ctrl.newLetter.body" placeholder="Message" required></textarea>
+    </p>
+    <p class="w-write-mailbox">
+      <select ng-options="mailbox._id as mailbox.title for mailbox in $ctrl.mailboxes track by mailbox._id" class="w-write-mailbox__select" ng-model="$ctrl.newLetter.mailbox" required>
+        <option value="" disabled>-- Choose mailbox --</option>
+      </select>
+    </p>
+    <p class="w-write-send">
+      <input class="w-write-send__btn" type="submit" value="Create!" />
+    </p>
+  </form>
+
+</div>

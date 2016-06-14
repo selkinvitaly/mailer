@@ -1,0 +1,15 @@
+<div class="w-cleanup-win" ng-click="$ctrl.preventBubbling($event)">
+  <button class="w-cleanup-close" ng-click="$ctrl.close()">
+    <svg class="w-cleanup-close__icn">
+      <use xlink:href="assets/img/sprite.svg#cross"></use>
+    </svg>
+  </button>
+
+  <p class="w-cleanup-desc">Are you sure you want to delete all letters into the mailbox?</p>
+
+  <div class="w-cleanup-btn">
+    <button class="w-cleanup-btn__yes" ng-click="$ctrl.yesHandler()" ng-disabled="$ctrl.removing">Yes</button>
+    <button class="w-cleanup-btn__no" ng-click="$ctrl.close()" ng-disabled="$ctrl.removing">No</button>
+  </div>
+
+</div>

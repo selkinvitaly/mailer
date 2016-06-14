@@ -1,0 +1,131 @@
+.w-write
+  display: none
+  width: 100%
+  height: 100%
+  position: fixed
+  z-index: 999
+  background-color: rgba(#000, .5)
+
+  &_opened
+    display: block
+
+  &-close
+    position: absolute
+    top: (10/16)rem
+    right: (10/16)rem
+    width: 12px
+    height: @width
+    color: #333
+    display: block
+    padding: 0
+    background: transparent
+    transition: color .3s
+
+    &:hover
+      color: #bb4934
+
+    &__icn
+      display: block
+      width: 100%
+      height: 100%
+      fill: currentColor
+
+  &-win
+    position: relative
+    width: 400px
+    height: 350px
+    margin: 0 auto
+    top: 50%
+    margin-top: -(@height / 2)
+    background-color: #fff
+    border: 2px solid #ff6347
+    font-weight: 300
+    padding: (20/16)rem 2rem
+
+  &__title
+    font-weight: 300
+    text-transform: uppercase
+    line-height: 1
+    text-align: center
+    margin-bottom: 1rem
+
+  &-subject
+  &-to
+  &-body
+    margin-bottom: .5rem
+
+    &__input
+      width: 100%
+      border: 1px solid #ccc
+      border-radius: 3px
+      color: #333
+
+      &::placeholder
+        color: #c7c3c3
+
+      &:focus
+        border-color: #999
+
+  &-subject
+  &-to
+    &__input
+      height: 35px
+      padding: 0 1rem
+
+  &-body
+    &__input
+      padding: .5rem 1rem
+      height: 100px
+      resize: none
+
+  &-mailbox
+    margin-bottom: .5rem
+    position: relative
+
+    &::after
+      content: ""
+      background: url("./down-arrow.svg") no-repeat center
+      display: block
+      position: absolute
+      top: 50%
+      right: 1rem
+      width: 15px
+      height: 15px
+      margin-top: -(@height / 2)
+
+    &__select
+      appearance: none
+      width: 100%
+      background: transparent
+      position: relative
+      z-index: 1
+      height: 35px
+      padding: 0 1rem
+      border-color: #ccc
+      border-radius: 3px
+      color: #c7c3c3
+
+      &:focus
+        border-color: #999
+        color: #333
+
+  &-send
+    text-align: center
+
+    &__btn
+      background: #ff6347
+      color: #fff
+      height: 35px
+      line-height: @height
+      font-weight: 500
+      width: 100%
+      border-radius: 3px
+
+      &:hover
+        box-shadow: inset 0px 3px 5px 1px rgba(#000, .1)
+        background-color: #e95a40
+
+      &:disabled
+        opacity: .6
+        cursor: default
+        background-color: inherit !important
