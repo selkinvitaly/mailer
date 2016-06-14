@@ -26,9 +26,9 @@ exports.getAll = function*(next) {
     return this.throw(400);
   }
 
-  let data = yield User.find({}).lean();
+  let data = yield User.find({}, null, { skip: offset, limit }).lean();
 
-  this.body = data.slice(offset, offset + limit);
+  this.body = data;
 };
 
 exports.getById = function*(next) {

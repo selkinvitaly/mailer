@@ -25,9 +25,9 @@ exports.getLetters = function*(next) {
     return this.throw(400);
   }
 
-  let data = yield Letter.find({ mailbox: this.params.boxid}).lean();
+  let data = yield Letter.find({ mailbox: this.params.boxid }, null, { skip: offset, limit }).lean();
 
-  this.body = data.slice(offset, offset + limit);
+  this.body = data;
 };
 
 exports.cleanupMailbox = function*(next) {
