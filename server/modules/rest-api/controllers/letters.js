@@ -5,12 +5,14 @@ const mongoose = require("odm");
 
 exports.param = function*(id, next) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    this.throw(404);
+    this.status = 400;
+    this.throw(400);
   }
 
   this.fetchedLetter = yield Letter.findById(id);
 
   if (!this.fetchedLetter) {
+    this.status = 404;
     this.throw(404);
   }
 
