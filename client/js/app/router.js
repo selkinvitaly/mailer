@@ -1,7 +1,7 @@
 "use strict";
 
-/*@ngInject*/
 export function config($locationProvider, $stateProvider, $urlRouterProvider) {
+  "ngInject";
 
   $urlRouterProvider.otherwise("404");
   $locationProvider.html5Mode(true);
@@ -20,6 +20,8 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
       template: `<view-home class="v-home" />`,
       resolve: {
         mailboxes: function(MailboxesApi, MailboxesStore, $state) {
+          "ngInject";
+
           return MailboxesApi.getAll()
             .then(mailboxes => {
               MailboxesStore.set(mailboxes);
@@ -41,12 +43,16 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
       template: `<view-cabinet class="v-cabinet" />`,
       resolve: {
         mailboxes: function(MailboxesApi, MailboxesStore) {
+          "ngInject";
+
           return MailboxesApi.getAll()
             .then(mailboxes => {
               MailboxesStore.set(mailboxes);
             });
         },
         count: function(LettersApi, LettersStore) {
+          "ngInject";
+
           return LettersApi
             .count()
             .then(count => LettersStore.setCount(count));
@@ -58,6 +64,8 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
       template: `<view-mailbox class="v-mailbox" />`,
       resolve: {
         letters: function(LettersApi, MailboxesStore, LettersStore, $stateParams) {
+          "ngInject";
+
           let boxid = $stateParams.mailboxid;
           let page = $stateParams.page || 1;
 
@@ -77,6 +85,8 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
       template: `<view-letter class="v-letter" />`,
       resolve: {
         letter: function(LettersApi, MailboxesStore, LetterDetailsStore, $stateParams) {
+          "ngInject";
+
           let letterid = $stateParams.letterid;
           let boxid = $stateParams.mailboxid;
 
@@ -93,6 +103,8 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
       template: `<view-contacts class="v-contacts" />`,
       resolve: {
         letters: function(UsersApi, UsersStore, LettersStore, MailboxesStore) {
+          "ngInject";
+
           MailboxesStore.resetSelection();
           LettersStore.deselectAll();
 
@@ -108,6 +120,8 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
       template: `<view-user class="v-user" />`,
       resolve: {
         letter: function(UsersApi, MailboxesStore, UserDetailsStore, $stateParams) {
+          "ngInject";
+
           let userid = $stateParams.userid;
 
           MailboxesStore.resetSelection();
@@ -121,10 +135,12 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
 
 };
 
-/*@ngInject*/
 export function run($transitions) {
+  "ngInject";
 
   $transitions.onError({ to: "*" }, (ErrorHandler, $error$) => {
+    "ngInject";
+
     ErrorHandler.handle($error$);
   });
 
