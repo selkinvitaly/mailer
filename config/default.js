@@ -10,6 +10,7 @@ const tasksConfig    = require("./cfg/gulp-paths");
 const mongooseConfig = require("./cfg/mongoose");
 const serverConfig   = require("./cfg/server");
 const cryptoConfig   = require("./cfg/crypto");
+const angularConfig  = require("./cfg/angular");
 const pluginsConfig  = require("./cfg/gulp-plugins")(root);
 
 let config = module.exports = {};
@@ -25,6 +26,8 @@ config.gulp = {
 };
 
 config.env = envConfig;
+
+config.angular = angularConfig;
 
 config.mongoose = mongooseConfig;
 config.server = serverConfig;

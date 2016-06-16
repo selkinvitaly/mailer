@@ -1,8 +1,6 @@
 "use strict";
 
-import cfg from "dev-cfg";
-
-const BASE_API = cfg.baseApi;
+const BASE_API = APP_CONF.baseApi;
 
 export default function($http, $q, CacheDB, $httpParamSerializerJQLike) {
   "ngInject";

@@ -6,6 +6,7 @@ const aprefix  = require("autoprefixer");
 const annotate = require("ng-annotate-webpack-plugin");
 const isDev    = require("./environments").isDev;
 const isWatch  = require("./environments").isWatch;
+const angular  = require("./angular");
 
 module.exports = function(root) {
 
@@ -26,10 +27,7 @@ module.exports = function(root) {
     debug: isWatch,
     devtool: isWatch ? "#inline-source-map" : null,
     resolve: {
-      modules: [
-        [root, path.join(root, "./client/js/config")],
-        "node_modules"
-      ],
+      modules: [ root, "node_modules" ],
       extensions: [".js"],
       enforceModuleExtension: false,
       enforceExtension: false,
@@ -43,6 +41,9 @@ module.exports = function(root) {
     },
     plugins: [
       new webpack.NoErrorsPlugin(),
+      new webpack.DefinePlugin({
+        APP_CONF: angular
+      }),
       new webpack.optimize.CommonsChunkPlugin({
         name: "vendor",
         minChunks: Infinity
