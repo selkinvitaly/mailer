@@ -5,9 +5,10 @@
   "scripts": {
     "build:clean": "./node_modules/.bin/gulp build:clean",
     "build:dev": "./node_modules/.bin/gulp build",
-    "build:prod": "NODE_ENV=production ./node_modules/.bin/gulp build",
+    "build:prod": "NODE_ENV=deployment ./node_modules/.bin/gulp build",
     "build:watch": "WATCH=true ./node_modules/.bin/gulp build:watch",
     "server:dev": "NODE_PATH=./server/libs:./server/modules MONGOOSE_DEBUG=true node ./server/bin/server",
+    "server:prod": "NODE_ENV=production NODE_PATH=./server/libs:./server/modules node ./server/bin/server",
     "server:watch": "NODE_PATH=./server/libs:./server/modules MONGOOSE_DEBUG=true nodemon ./server/bin/server",
     "db:fixtures": "NODE_PATH=./server/libs:./server/modules ./node_modules/.bin/gulp db:fixtures",
     "test:server": "NODE_PATH=./server/libs:./server/modules ./node_modules/.bin/mocha server/test --opts server/test/mocha.opts"

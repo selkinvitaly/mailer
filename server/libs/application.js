@@ -10,11 +10,9 @@ module.exports = class Application extends Koa {
     return Promise.all([
       mongoose.connect(config.get("mongoose.uri"), config.get("mongoose.options")),
       new Promise((resolve, reject) => {
-        this.server = this.listen(
-          config.get("server.port"),
-          config.get("server.host"),
-          err => err ? reject(err) : resolve()
-        );
+        this.server = this.listen({
+          port: config.get("server.port")
+        }, err => err ? reject(err) : resolve());
       })
     ]);
   }

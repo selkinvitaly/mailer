@@ -1,8 +1,20 @@
 # Mailer
 
-This is simple SPA app using the following technologies: [angular1.5.6](https://github.com/angular/angular.js), [angular-ui-router1.0.0](https://github.com/angular-ui/ui-router), [koajs](http://koajs.com), [passportjs](https://github.com/rkusa/koa-passport), [mongodb](https://www.mongodb.org), [mongoose](mongoosejs.com), [webpack2](https://github.com/webpack/webpack), [gulp4](https://github.com/gulpjs/gulp/tree/4.0), [babel6](babeljs.io).
+[![Build Status](https://travis-ci.org/selkinvitaly/mailer.svg?branch=master)](https://travis-ci.org/selkinvitaly/mailer)
+
+This is simple SPA app using the following technologies:
+- front-end: [angular1.5.6](https://github.com/angular/angular.js), [angular-ui-router1.0.0](https://github.com/angular-ui/ui-router),
+- server: nodejs with [koajs](http://koajs.com),
+- authenticate: [passportjs](https://github.com/rkusa/koa-passport),
+- db: [mongodb](https://www.mongodb.org) with [mongoose](mongoosejs.com)
+- building: [webpack2](https://github.com/webpack/webpack), [gulp4](https://github.com/gulpjs/gulp/tree/4.0), [babel6](babeljs.io) for ES2015.
 
 ![preview](docs/preview.gif)
+
+## Example
+
+The deploy example is located on [Heroku](https://sv-mailer.herokuapp.com).
+Login details specified in the fixtures: `fixtures/models/users.js`
 
 ## Quick start
 
@@ -12,7 +24,7 @@ This is simple SPA app using the following technologies: [angular1.5.6](https://
 mongod --port 3003 --bind_ip "127.0.0.1"
 ```
 
-The server uses mongoose to work with mongodb. The config file is located here:`config/cfg/mongoose.js`.
+The server uses mongoose to work with mongodb. The config files is located here:`config/`.
 
 2) Install all dependencies using npm:
 
@@ -43,10 +55,11 @@ npm run server:dev
 ## Tasks
 
 - build:clean - clean the built files from `server/public/`;
-- build:dev - build project for development (without minification);
-- build:prod - build project for production (with minification);
-- build:watch - build project for development and starts proxy server for watching changes
-- server:dev - start nodejs server;
+- build:dev - build project for development;
+- build:prod - build project for production;
+- build:watch - build project for development and starts proxy server for watching changes;
+- server:dev - start nodejs server with development config;
+- server:prod - start nodejs server with production config;
 - server:watch - start nodejs server via [nodemon](https://github.com/remy/nodemon), so you need to install this module globally;
 - db:fixtures: load fixtures (`fixtures/models/`) to db
 

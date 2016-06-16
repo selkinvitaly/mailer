@@ -1,34 +1,25 @@
 "use strict";
 
-const root = process.cwd();
-
 const path = require("path");
 
-const envConfig      = require("./cfg/environments");
-const webpackConfig  = require("./cfg/webpack")(root);
-const tasksConfig    = require("./cfg/gulp-paths");
-const mongooseConfig = require("./cfg/mongoose");
-const serverConfig   = require("./cfg/server");
-const cryptoConfig   = require("./cfg/crypto");
-const angularConfig  = require("./cfg/angular");
-const pluginsConfig  = require("./cfg/gulp-plugins")(root);
+const environments= require("./cfg/environments");
+
+const root = process.cwd();
 
 let config = module.exports = {};
 
 config.root = root;
+config.env = environments;
 config.rootServer = path.join(root, "./server");
 config.rootClient = path.join(root, "./client");
 
-config.webpack = webpackConfig;
-config.gulp = {
-  plugins: pluginsConfig,
-  tasks: tasksConfig
+config.server = {
+  host: "127.0.0.1",
+  port: process.env.PORT || 3030,
+  keys: ["mysecret"]
 };
 
-config.env = envConfig;
-
-config.angular = angularConfig;
-
-config.mongoose = mongooseConfig;
-config.server = serverConfig;
-config.crypto = cryptoConfig;
+config.crypto = {
+  length: 128,
+  iterations: 1
+};

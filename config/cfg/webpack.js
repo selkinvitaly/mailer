@@ -4,11 +4,17 @@ const path     = require("path");
 const webpack  = require("webpack");
 const aprefix  = require("autoprefixer");
 const annotate = require("ng-annotate-webpack-plugin");
-const isDev    = require("./environments").isDev;
-const isWatch  = require("./environments").isWatch;
-const angular  = require("./angular");
+const envs     = require("./environments");
+
+const isWatch  = envs.isWatch;
+const isDeploy = envs.isDeploy;
 
 module.exports = function(root) {
+
+  let angularConfig = {
+    baseApi: isDeploy ? JSON.stringify("https://sv-mailer.herokuapp.com/api")
+                      : JSON.stringify("http://localhost:3000/api")
+  };
 
   let options = {
     watch: isWatch,
@@ -22,7 +28,7 @@ module.exports = function(root) {
       filename: "[name].js",
       chunkFilename: "[id].js",
       publicPath: "",
-      pathinfo: isDev
+      pathinfo: !isDeploy
     },
     debug: isWatch,
     devtool: isWatch ? "#inline-source-map" : null,
@@ -42,7 +48,7 @@ module.exports = function(root) {
     plugins: [
       new webpack.NoErrorsPlugin(),
       new webpack.DefinePlugin({
-        APP_CONF: angular
+        APP_CONF: angularConfig
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: "vendor",
@@ -70,8 +76,8 @@ module.exports = function(root) {
         }
       }, {
         test: /\.styl$/,
-        loader: isDev ? "style-loader!css-loader!postcss-loader!stylus-loader?resolve url"
-                      : "style-loader!css-loader?minimize!postcss-loader!stylus-loader?resolve url"
+        loader: !isDeploy ? "style-loader!css-loader!postcss-loader!stylus-loader?resolve url"
+                          : "style-loader!css-loader?minimize!postcss-loader!stylus-loader?resolve url"
       }, {
         test: /\.svg$/,
         loader: "svg-url-loader!svgo-loader"
@@ -87,7 +93,7 @@ module.exports = function(root) {
     }
   };
 
-  if (!isDev) {
+  if (isDeploy) {
     options.plugins.push(
       new annotate(),
       new webpack.optimize.UglifyJsPlugin({

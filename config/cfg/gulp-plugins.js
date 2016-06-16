@@ -1,8 +1,7 @@
 "use strict";
 
-const path  = require("path");
-const isDev = require("./environments").isDev;
-const proxy = require("./server");
+const path     = require("path");
+const isDeploy = require("./environments").isDeploy;
 
 module.exports = function(root) {
 
@@ -12,7 +11,7 @@ module.exports = function(root) {
     },
 
     browserSync: {
-      proxy: `${proxy.host}:${proxy.port}`,
+      proxy: "127.0.0.1:3030",
       ghostMode: false,
       ui: false,
       notify: false,
@@ -20,7 +19,7 @@ module.exports = function(root) {
     },
 
     stylus: {
-      compress: !isDev
+      compress: isDeploy
     },
 
     cssBase64: {

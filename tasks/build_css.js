@@ -11,8 +11,8 @@ const notify  = require("gulp-notify");
 const base64  = require("gulp-base64");
 const config  = require("config");
 
-const isDev   = config.get("env.isDev");
-const isWatch = config.get("env.isWatch");
+const isDeploy = config.get("env.isDeploy");
+const isWatch  = config.get("env.isWatch");
 
 module.exports = function(options) {
   let src     = config.get("gulp.tasks.css.src");
@@ -34,7 +34,7 @@ module.exports = function(options) {
       })
       .pipe(postcss(processors))
       .pipe(gulpIf(isWatch, smaps.write()))
-      .pipe(gulpIf(isDev, csscomb()))
+      .pipe(gulpIf(!isDeploy, csscomb()))
       .pipe(base64(plugins.cssBase64))
       .pipe(gulp.dest(dest))
       .pipe(gulpIf(isWatch, bsync.reload({ stream: true })));
