@@ -1,6 +1,6 @@
 "use strict";
 
-const mongoose = require("odm");
+const mongoose = require("mongoose.resolve");
 const crypto = require("crypto");
 const config = require("config");
 const validate = require("mongoose-validator");

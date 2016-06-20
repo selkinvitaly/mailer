@@ -1,7 +1,7 @@
 "use strict";
 
-const mongoose = require("odm");
-const Mailbox  = require("mailboxes").Mailbox;
+const mongoose = require("mongoose.resolve");
+const Mailbox  = require("mailboxes.resolve").Mailbox;
 const validate = require("mongoose-validator");
 
 let letterSchema = new mongoose.Schema({

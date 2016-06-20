@@ -2,7 +2,7 @@
 
 const oid = require("../libs/oid");
 
-require("mailboxes"); // load mongoose model
+require("mailboxes.resolve"); // load mongoose model
 
 module.exports = [{
   _id: oid("inbox"),

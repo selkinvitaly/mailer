@@ -1,8 +1,8 @@
 "use strict";
 
-const Mailbox = require("mailboxes").Mailbox;
-const Letter = require("letters").Letter;
-const mongoose = require("odm");
+const Mailbox = require("mailboxes.resolve").Mailbox;
+const Letter = require("letters.resolve").Letter;
+const mongoose = require("mongoose.resolve");
 
 exports.param = function*(id, next) {
   if (!mongoose.Types.ObjectId.isValid(id)) {

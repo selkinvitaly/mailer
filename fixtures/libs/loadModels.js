@@ -1,6 +1,6 @@
 "use strict";
 
-const mongoose = require("odm");
+const mongoose = require("mongoose.resolve");
 const config   = require("config");
 const path     = require("path");
 

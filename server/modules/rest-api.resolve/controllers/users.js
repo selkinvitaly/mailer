@@ -1,7 +1,7 @@
 "use strict";
 
-const User = require("users").User;
-const mongoose = require("odm");
+const User = require("users.resolve").User;
+const mongoose = require("mongoose.resolve");
 
 exports.param = function*(id, next) {
   if (!mongoose.Types.ObjectId.isValid(id)) {

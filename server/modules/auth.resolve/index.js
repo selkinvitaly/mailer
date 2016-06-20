@@ -2,7 +2,7 @@
 
 const passport = require("koa-passport");
 const localStrategy = require("./strategies/local");
-const User = require("users").User;
+const User = require("users.resolve").User;
 const router = require("./router");
 
 passport.serializeUser(function(user, done) {

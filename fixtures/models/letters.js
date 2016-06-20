@@ -2,7 +2,7 @@
 
 const oid = require("../libs/oid");
 
-require("letters"); // load mongoose model
+require("letters.resolve"); // load mongoose model
 
 module.exports = [{
   _id: oid("letter_1"),

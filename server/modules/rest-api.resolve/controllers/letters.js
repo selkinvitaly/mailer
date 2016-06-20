@@ -1,7 +1,7 @@
 "use strict";
 
-const Letter = require("letters").Letter;
-const mongoose = require("odm");
+const Letter = require("letters.resolve").Letter;
+const mongoose = require("mongoose.resolve");
 
 exports.param = function*(id, next) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
