@@ -29,22 +29,22 @@ export default function() {
         case "m":
           compared = new Date(this.lastLoadTime).setMinutes(this.lastLoadTime.getMinutes() + count);
 
-          return Date.now > compared;
+          return Date.now() > compared;
 
         case "h":
           compared = new Date(this.lastLoadTime).setHours(this.lastLoadTime.getHours() + count);
 
-          return Date.now > compared;
+          return Date.now() > compared;
 
         case "s":
           compared = new Date(this.lastLoadTime).setSeconds(this.lastLoadTime.getSeconds() + count);
 
-          return Date.now > compared;
+          return Date.now() > compared;
 
         case "d":
           compared = new Date(this.lastLoadTime).setDate(this.lastLoadTime.getDate() + count);
 
-          return Date.now > compared;
+          return Date.now() > compared;
       }
 
     }
