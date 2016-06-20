@@ -33,16 +33,6 @@ export default function() {
       return this.count[boxid] || 0;
     }
 
-    remove(id) {
-      let items = this.data;
-
-      for (let i = 0; i < items.length; i++) {
-        if (id !== items[i]) continue;
-
-        return items.splice(i, 1);
-      }
-    }
-
     removeAll(mailboxid) {
       this.data = [];
 

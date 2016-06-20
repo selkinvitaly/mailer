@@ -57,7 +57,6 @@ export default {
         .then(removedIds => {
 
           LettersStore.deselectAll()
-          removedIds.forEach(LettersStore.remove.bind(LettersStore));
 
           Notify.add("Removed!");
 
