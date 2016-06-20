@@ -8,6 +8,7 @@ This is simple SPA app using the following technologies:
 - authenticate: [passportjs](https://github.com/rkusa/koa-passport),
 - db: [mongodb](https://www.mongodb.org) with [mongoose](mongoosejs.com)
 - building: [webpack2](https://github.com/webpack/webpack), [gulp4](https://github.com/gulpjs/gulp/tree/4.0), [babel6](babeljs.io) for ES2015.
+- tests: [karma](http://karma-runner.github.io/0.13/index.html) for running; [chai](http://chaijs.com/) for assert; [sinon](http://sinonjs.org/) for stubs; [co-mocha/mocha](http://mochajs.org/); [request-promise](https://github.com/request/request-promise) for test api
 
 ![preview](docs/preview.gif)
 
@@ -61,7 +62,9 @@ npm run server:dev
 - server:dev - start nodejs server with development config;
 - server:prod - start nodejs server with production config;
 - server:watch - start nodejs server via [nodemon](https://github.com/remy/nodemon), so you need to install this module globally;
-- db:fixtures: load fixtures (`fixtures/models/`) to db
+- db:fixtures: load fixtures (`fixtures/models/`) to db;
+- test:server - run tests for server api
+- test:client - run unit tests
 
 ## API
 
