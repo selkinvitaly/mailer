@@ -1,6 +1,6 @@
 "use strict";
 
-const should = require("should");
+const chai = require("chai");
 const rp = require("request-promise");
 const config = require("config");
 const path = require("path");
@@ -13,6 +13,8 @@ const root = config.get("root");
 
 const fixtures = require(path.join(root, "fixtures"));
 const loadModels = require(path.join(root, "fixtures/libs/loadModels.js"));
+
+const assert = chai.assert;
 
 const testUser = fixtures.User[0];
 const testLetter = fixtures.Letter[0];
@@ -41,7 +43,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -57,7 +59,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -74,7 +76,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -90,7 +92,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -106,7 +108,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -123,7 +125,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -140,7 +142,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -157,7 +159,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -173,7 +175,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -189,7 +191,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -206,7 +208,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(401, response.statusCode);
+        assert.strictEqual(response.statusCode, 401);
 
       });
 
@@ -222,7 +224,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -234,7 +236,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        response.headers["content-type"].should.containEql("text/html");
+        assert.include(response.headers["content-type"], "text/html");
 
       });
 
@@ -262,7 +264,7 @@ describe("API", function() {
 
       cookieJar = j;
 
-      should.strictEqual(200, response.statusCode);
+      assert.strictEqual(response.statusCode, 200);
 
     });
 
@@ -276,7 +278,7 @@ describe("API", function() {
         resolveWithFullResponse: true
       });
 
-      should.strictEqual(200, response.statusCode);
+      assert.strictEqual(response.statusCode, 200);
 
     });
 
@@ -291,7 +293,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -302,7 +304,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        response.headers["content-type"].should.containEql("application/json");
+        assert.include(response.headers["content-type"], "application/json");
 
       });
 
@@ -317,10 +319,10 @@ describe("API", function() {
           json: true
         });
 
-        let expectedTransformed = users.map(user => user._id);
-        let actualTransformed = fixtures.User.slice(offset, offset + limit).map(user => user._id);
+        let actualTransformed = users.map(user => user._id);
+        let expectedTransformed = fixtures.User.slice(offset, offset + limit).map(user => user._id);
 
-        should.strictEqual(expectedTransformed.length, actualTransformed.length);
+        assert.strictEqual(actualTransformed.length, expectedTransformed.length);
         // expectedTransformed.should.be.eql(actualTransformed);
 
       });
@@ -338,7 +340,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -349,7 +351,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        response.headers["content-type"].should.containEql("application/json");
+        assert.include(response.headers["content-type"], "application/json");
 
       });
 
@@ -361,7 +363,7 @@ describe("API", function() {
           json: true
         });
 
-        should.strictEqual(testUser._id, user._id);
+        assert.strictEqual(user._id, testUser._id);
 
       });
 
@@ -379,7 +381,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -392,7 +394,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(404, response.statusCode);
+        assert.strictEqual(response.statusCode, 404);
 
       });
 
@@ -413,7 +415,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -425,7 +427,7 @@ describe("API", function() {
           json: true
         });
 
-        calculatedCount.should.be.eql(fetchedCount);
+        assert.deepEqual(fetchedCount, calculatedCount);
 
       });
 
@@ -441,7 +443,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -453,7 +455,7 @@ describe("API", function() {
           json: true
         });
 
-        should.strictEqual(testLetter._id, letter._id);
+        assert.strictEqual(letter._id, testLetter._id);
 
       });
 
@@ -483,7 +485,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(400, response.statusCode);
+        assert.strictEqual(response.statusCode, 400);
 
       });
 
@@ -501,7 +503,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(400, response.statusCode);
+        assert.strictEqual(response.statusCode, 400);
 
       });
 
@@ -519,7 +521,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(400, response.statusCode);
+        assert.strictEqual(response.statusCode, 400);
 
       });
 
@@ -537,7 +539,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(400, response.statusCode);
+        assert.strictEqual(response.statusCode, 400);
 
       });
 
@@ -554,14 +556,14 @@ describe("API", function() {
 
         actualLetter = response.body;
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
       it("should return created letter", function*() {
-        should.strictEqual(expectedLetter.subject, actualLetter.subject);
-        should.strictEqual(expectedLetter.to, actualLetter.to);
-        should.strictEqual(expectedLetter.body, actualLetter.body);
+        assert.strictEqual(actualLetter.subject, expectedLetter.subject);
+        assert.strictEqual(actualLetter.to, expectedLetter.to);
+        assert.strictEqual(actualLetter.body, expectedLetter.body);
       });
 
       it("should return created letter after creating", function*() {
@@ -572,7 +574,7 @@ describe("API", function() {
           json: true
         });
 
-        letter.should.be.eql(actualLetter);
+        assert.deepEqual(letter, actualLetter);
 
       });
 
@@ -589,7 +591,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -602,7 +604,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(404, response.statusCode);
+        assert.strictEqual(response.statusCode, 404);
 
       });
 
@@ -627,12 +629,12 @@ describe("API", function() {
 
         fetchedId = response.body;
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
       it("should return deleted ids", function*() {
-        deletedId.should.be.eql(fetchedId);
+        assert.deepEqual(fetchedId, deletedId);
       });
 
       it("should respond 404 for the first deleted id", function*() {
@@ -644,7 +646,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(404, response.statusCode);
+        assert.strictEqual(response.statusCode, 404);
 
       });
 
@@ -657,7 +659,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(404, response.statusCode);
+        assert.strictEqual(response.statusCode, 404);
 
       });
 
@@ -673,7 +675,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -685,10 +687,10 @@ describe("API", function() {
           json: true
         });
 
-        let expected = mailboxes.map(box => box._id);
-        let actual = fixtures.Mailbox.map(box => box._id);
+        let actual = mailboxes.map(box => box._id);
+        let expected = fixtures.Mailbox.map(box => box._id);
 
-        expected.should.be.eql(actual);
+        assert.deepEqual(actual, expected);
 
       });
 
@@ -704,7 +706,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -720,7 +722,7 @@ describe("API", function() {
           .map(letter => letter.mailbox)
           .filter(id => id !== testMailbox._id);
 
-        should.strictEqual(0, anotherLetters.length);
+        assert.lengthOf(anotherLetters, 0);
 
       });
 
@@ -737,7 +739,7 @@ describe("API", function() {
           resolveWithFullResponse: true
         });
 
-        should.strictEqual(200, response.statusCode);
+        assert.strictEqual(response.statusCode, 200);
 
       });
 
@@ -749,7 +751,7 @@ describe("API", function() {
           json: true
         });
 
-        should.strictEqual(0, letters.length);
+        assert.lengthOf(letters, 0);
 
       });
 
