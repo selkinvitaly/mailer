@@ -4,6 +4,7 @@ node_js:
   - "5"
 script:
   - "npm run test:server"
+  - "npm run test:client"
 services:
   - mongodb
 branches:

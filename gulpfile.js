@@ -2,7 +2,7 @@
 
 const gulp = require("gulp");
 const sync = require("browser-sync").create();
-const root = require("config").root;
+const root = require("config").get("root");
 const path = require("path");
 
 function lazyRequire(passedPath) {
@@ -28,7 +28,13 @@ gulp.task("build:css", lazyRequire("./tasks/build_css", { sync }));
 gulp.task("build:img", lazyRequire("./tasks/build_img"));
 gulp.task("build:sprite:svg", lazyRequire("./tasks/build_sprite-svg", { sync }));
 gulp.task("build:webpack", lazyRequire("./tasks/build_webpack", { sync }));
-gulp.task("build",gulp.series("build:clean", gulp.parallel("build:css", "build:sprite:svg", "build:img", "build:webpack")));
+gulp.task("build", gulp.series("build:clean", gulp.parallel("build:css", "build:sprite:svg", "build:img", "build:webpack")));
 gulp.task("build:watch", lazyRequire("./tasks/build_watch"));
 
 gulp.task("db:fixtures", lazyRequire("./tasks/db_fixtures"));
+
+gulp.task("test:unit:specs", lazyRequire("./tasks/test_unit_specs"));
+gulp.task("test:unit:karma", lazyRequire("./tasks/test_unit_karma"));
+gulp.task("test:unit:watch", gulp.parallel("test:unit:specs", "test:unit:karma"));
+gulp.task("test:unit", gulp.series("test:unit:specs", "test:unit:karma"));
+gulp.task("test:client", gulp.series("build", "test:unit", "build:clean"));
