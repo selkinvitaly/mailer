@@ -19,6 +19,8 @@ module.exports = function(root) {
       path: path.join(root, "./server/public/assets/js/"),
       filename: "[name].js"
     },
+    debug: true,
+    devtool: "#inline-source-map",
     resolve: {
       modules: [
         [ root, path.join(root, "./client/js/") ],

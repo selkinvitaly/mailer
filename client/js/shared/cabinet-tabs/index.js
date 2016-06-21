@@ -23,7 +23,11 @@ export default {
     this.getMailboxid = boxname => {
       let foundMailbox = MailboxesStore.getByName(boxname);
 
-      return foundMailbox ? foundMailbox._id : MailboxesStore.getByIndex(0)._id;
+      if (foundMailbox) {
+        return foundMailbox._id;
+      }
+
+      return MailboxesStore.getByIndex(0) && MailboxesStore.getByIndex(0)._id;
     };
 
   }
