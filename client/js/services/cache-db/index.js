@@ -11,7 +11,7 @@ export default function() {
     // template examples:
     // "5m"-minutes, "5h"-hours, "5s"-seconds, "5d"-days
     hasBeen(template) {
-      const REXP = /([1-9])+([mhsd])/;
+      const REXP = /([0-9]+)([mhsd])/;
 
       if (typeof template !== "string") {
         throw new Error("passed template must be string");
