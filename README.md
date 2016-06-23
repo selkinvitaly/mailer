@@ -15,14 +15,18 @@ This is simple SPA app using the following technologies:
 ## Example
 
 The deploy example is located on [Heroku](https://sv-mailer.herokuapp.com).
-Login details specified in the fixtures: `fixtures/models/users.js`
+
+## Access (email and password)
+
+Login details specified in the fixtures: `fixtures/models/users.js`.
+For example: email `mike@test.ru`, pw `mike`
 
 ## Quick start
 
 1) Start [mongodb](https://www.mongodb.com/download-center?jmp=nav#community):
 
 ```sh
-mongod --port 3003 --bind_ip "127.0.0.1"
+mongod --bind_ip "127.0.0.1" --dbpath=/home/youruser/mongodb/mongo.db
 ```
 
 The server uses mongoose to work with mongodb. The config files is located here:`config/`.
@@ -33,25 +37,27 @@ The server uses mongoose to work with mongodb. The config files is located here:
 npm i
 ```
 
-3) Build project:
-
-```sh
-npm run build:dev
-```
-
-The built files (js, css, img) are copied to here: `server/public/`
-
-4) Load fixtures (`fixtures/models/`) into db:
+3) Load fixtures (`fixtures/models/`) into db:
 
 ```sh
 npm run db:fixtures
 ```
 
-5) Start nodejs server:
+4) Start nodejs server:
 
 ```sh
 npm run server:dev
 ```
+
+5) Build project:
+
+```sh
+npm run build:watch
+```
+
+The built files (js, css, img) are copied to here: `server/public/`
+
+6) Open browser: `http://localhost:3000/`
 
 ## Tasks
 
@@ -68,7 +74,7 @@ npm run server:dev
 
 ## API
 
-The server has API routes for work with data application (login, logout, getting from db).If you passed to another url (not API), then the server will always return template `server/modules/spa/templates/index.jade` (because It's SPA).All API routes require authorization.If you are logged in then the server will respond 200, otherwise 401. For authenticate you need enable automatic sending cookies from js.See example below for `fetch`.
+The server has API routes for work with data application (login, logout, getting from db).If you passed to another url (not API), then the server will always return template `server/modules/spa/templates/index.jade` (because It's SPA).All API routes require authorization.If you are logged in then the server will respond 200, otherwise 401. For authenticate you need enable automatic sending cookies from js. See example below for `fetch`.
 
 The server has following API routes:
 - POST /api/login - authorizes user.
@@ -91,7 +97,7 @@ fetch("http://localhost:3000/api/login", {
 For example for [`$http`](https://docs.angularjs.org/api/ng/service/$http):
 
 ```js
-let access = {email: "mike@test.ru", password: "mike"};
+let access = { email: "mike@test.ru", password: "mike" };
 
 $http.post("http://localhost:3000/login", $httpParamSerializerJQLike(access), {
   headers: {
