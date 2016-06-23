@@ -4,41 +4,17 @@ import template from "./template.html";
 import "./style.styl";
 
 export default {
-  controller: function(LettersApi, LettersStore, MailboxesStore, $stateParams, $state) {
+  bindings: {
+    floorNum: "< minOrder",
+    ceilNum: "< maxOrder",
+    total: "<"
+  },
+  controller: function(LettersApi, $stateParams, $state) {
     "ngInject";
-
-    const mailboxId = MailboxesStore.selected;
 
     Object.defineProperty(this, "loading", {
       get: function() {
         return LettersApi.loading;
-      }
-    });
-
-    Object.defineProperty(this, "total", {
-      get: function() {
-        return LettersStore.getCountByMailbox(mailboxId);
-      }
-    });
-
-    Object.defineProperty(this, "floorNum", {
-      get: function() {
-        let countLetters = LettersStore.data.length;
-
-        if (!countLetters) return 0;
-
-        let page = $stateParams.page || 1;
-        let limit = LettersStore.LIMIT;
-
-        return limit * (page - 1) + 1;
-      }
-    });
-
-    Object.defineProperty(this, "ceilNum", {
-      get: function() {
-        let countLetters = LettersStore.data.length || 1;
-
-        return this.floorNum + countLetters - 1;
       }
     });
 

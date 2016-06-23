@@ -6,6 +6,19 @@ export default function() {
     constructor() {
       this.data = [];
       this.selected = null;
+      this.count = {};
+    }
+
+    setCount(countData) {
+      this.count = countData;
+    }
+
+    getCountByMailbox(boxid) {
+      return this.count[boxid] || 0;
+    }
+
+    clearCountByMailbox(mailboxid) {
+      this.count[mailboxid] = null;
     }
 
     getByName(title) {
@@ -26,10 +39,6 @@ export default function() {
 
     resetSelection() {
       this.selected = null;
-    }
-
-    getCurrent() {
-      return this.data.filter(item => item._id === this.selected)[0];
     }
 
   }

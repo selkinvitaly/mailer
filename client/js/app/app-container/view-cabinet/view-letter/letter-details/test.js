@@ -1,7 +1,8 @@
 "use strict";
 
 describe("letterDetails component", function() {
-  let componentController, componentElement, LettersStore;
+  let componentController, componentElement;
+  let fakeLetter = {};
 
   angular.mock.module.sharedInjector();
 
@@ -11,29 +12,34 @@ describe("letterDetails component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($compile, $rootScope, _LettersStore_) {
+  before(angular.mock.inject(function($compile, $rootScope) {
     let parentScope = $rootScope.$new();
 
-    parentScope.$ctrl = { letter: {} };
+    parentScope.$ctrl = { letter: fakeLetter };
 
     let element = angular.element(`<letter-details class="letter-details" letter="$ctrl.letter" />`);
     let compiledElement = $compile(element)(parentScope);
 
     componentController = compiledElement.isolateScope().$ctrl;
     componentElement = element;
-    LettersStore = _LettersStore_;
   }));
 
-  it("'formatDate' should call LettersStore service", function() {
-    sinon.stub(LettersStore, "formatDate");
+  it("should has bindings", function() {
+    assert.strictEqual(componentController.letter, fakeLetter);
+  });
 
-    let fakeDate = new Date();
+  it("should format today date", function() {
+    let testDate = new Date();
+    let expectedMinutes = (testDate.getMinutes().toString().length === 2) && testDate.getMinutes() || "0" + testDate.getMinutes();
+    let expectedFormat = `${testDate.getHours()}:${expectedMinutes}`;
 
-    componentController.formatDate(fakeDate);
+    assert.strictEqual(componentController.formatDate(testDate), expectedFormat);
+  });
 
-    assert.isTrue(LettersStore.formatDate.calledWithExactly(fakeDate));
+  it("should format not today date", function() {
+    let testDate = new Date(2000, 6, 20);
 
-    LettersStore.formatDate.restore();
+    assert.strictEqual(componentController.formatDate(testDate), "20.07.2000");
   });
 
 });

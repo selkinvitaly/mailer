@@ -1,7 +1,12 @@
 "use strict";
 
 describe("widgetMailboxActions component", function() {
-  let $rootScope, $state, componentController, componentElement, LettersStore, LettersApi, CacheDB;
+  let $rootScope, $state, componentController, componentElement, CacheDB;
+  let fakeExistSelection = "existSelection";
+  let fakeIsSelectedAll = "selectedAll";
+  let fakeIsEmpty = "isEmpty";
+  let fakeChooseAllHandler = sinon.stub();
+  let fakeRemoveHandler = sinon.stub();
 
   angular.mock.module.sharedInjector();
 
@@ -11,28 +16,43 @@ describe("widgetMailboxActions component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($compile, _$rootScope_, _$state_, _LettersStore_, _LettersApi_, _CacheDB_) {
+  before(angular.mock.inject(function($compile, _$rootScope_, _$state_, _CacheDB_) {
     let parentScope = _$rootScope_.$new();
-    let element = angular.element(`<widget-mailbox-actions class="w-mailbox-actions" />`);
+
+    parentScope.$ctrl = {
+      existSelection: fakeExistSelection,
+      isSelectedAll: fakeIsSelectedAll,
+      isEmpty: fakeIsEmpty,
+      chooseAllHandler: fakeChooseAllHandler,
+      removeHandler: fakeRemoveHandler
+    };
+
+    let element = angular.element(`<widget-mailbox-actions class="w-mailbox-actions"
+      exist-selection="$ctrl.existSelection"
+      is-selected-all="$ctrl.isSelectedAll"
+      is-empty="$ctrl.isEmpty"
+      choose-all-handler="$ctrl.chooseAllHandler()"
+      remove-handler="$ctrl.removeHandler()">
+    </widget-mailbox-actions>`);
     let compiledElement = $compile(element)(parentScope);
 
     $rootScope = _$rootScope_;
     $state = _$state_;
     componentController = compiledElement.isolateScope().$ctrl;
     componentElement = element;
-    LettersStore = _LettersStore_;
-    LettersApi = _LettersApi_;
     CacheDB = _CacheDB_;
   }));
 
-  it("'selectHandler' should call LettersStore service", function() {
-    sinon.stub(LettersStore, "toggleAll");
+  it("should has bindings", function() {
+    assert.strictEqual(componentController.shownRemoveBtn, fakeExistSelection);
+    assert.strictEqual(componentController.isSelectedAll, fakeIsSelectedAll);
+    assert.strictEqual(componentController.isEmpty, fakeIsEmpty);
 
     componentController.selectHandler();
+    componentController.removeHandler();
 
-    assert.isTrue(LettersStore.toggleAll.called);
-
-    LettersStore.toggleAll.restore();
+    assert.isTrue(fakeChooseAllHandler.called);
+    assert.isTrue(fakeRemoveHandler.called);
   });
 
   it("'refreshHandler' should reload state and clear cache", function() {
@@ -56,16 +76,6 @@ describe("widgetMailboxActions component", function() {
     assert.isTrue($rootScope.$emit.calledWithExactly("modal.cleanup.open"));
 
     $rootScope.$emit.restore();
-  });
-
-  it("'removeHandler' should call LettersStore service", function() {
-    sinon.stub(LettersApi, "removeMoreById").returns({ then: function() {} });
-
-    componentController.removeHandler();
-
-    assert.isTrue(LettersApi.removeMoreById.called);
-
-    LettersApi.removeMoreById.restore();
   });
 
 });

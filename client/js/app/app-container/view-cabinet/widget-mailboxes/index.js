@@ -4,7 +4,7 @@ import template from "./template.html";
 import "./style.styl";
 
 export default {
-  controller: function(LettersStore, MailboxesStore, $rootScope) {
+  controller: function(MailboxesStore, $rootScope) {
     "ngInject";
 
     Object.defineProperty(this, "mailboxes", {
@@ -19,7 +19,7 @@ export default {
       $rootScope.$emit("modal.write.open");
     };
 
-    this.getCountById = id => LettersStore.getCountByMailbox(id);
+    this.getCountById = id => MailboxesStore.getCountByMailbox(id);
 
   },
   template: template

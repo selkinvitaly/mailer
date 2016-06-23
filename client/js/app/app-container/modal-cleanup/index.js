@@ -5,7 +5,7 @@ import "./style.styl";
 
 export default {
   template: template,
-  controller: function(LettersApi, ErrorHandler, MailboxesStore, Notify, LettersStore, $element, $state, $rootScope) {
+  controller: function(LettersApi, ErrorHandler, MailboxesStore, Notify, $element, $state, $rootScope) {
     "ngInject";
 
     Object.defineProperty(this, "removing", {
@@ -34,7 +34,7 @@ export default {
       LettersApi.cleanMailbox(selected)
         .then(() => {
 
-          LettersStore.removeAll(selected);
+          MailboxesStore.clearCountByMailbox(selected);
           this.close();
           Notify.add("The mailbox was successfully cleaned!");
           $state.reload();

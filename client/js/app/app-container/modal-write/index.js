@@ -5,7 +5,7 @@ import "./style.styl";
 
 export default {
   template: template,
-  controller: function(LettersApi, ErrorHandler, MailboxesStore, Notify, LettersStore, $element, $state, $rootScope) {
+  controller: function(LettersApi, ErrorHandler, MailboxesStore, Notify, $element, $state, $rootScope) {
     "ngInject";
 
     this.newLetter = {

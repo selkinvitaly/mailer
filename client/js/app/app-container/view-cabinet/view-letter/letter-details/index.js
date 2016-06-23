@@ -7,7 +7,7 @@ export default {
   bindings: {
     letter: "<"
   },
-  controller: function(LettersApi, LettersStore) {
+  controller: function(LettersApi) {
     "ngInject";
 
     Object.defineProperty(this, "loading", {
@@ -22,9 +22,21 @@ export default {
       }
     });
 
-    this.formatDate = date => !date
-      ? "Wait..."
-      :  LettersStore.formatDate(date);
+    this.formatDate = date => {
+
+      if (!date) return "Wait...";
+
+      const ONE_DAY = 24 * 3600 * 1000;
+
+      let created = new Date(date);
+      let now = new Date();
+
+      let formatter = ((now - created) < ONE_DAY)
+        ? new Intl.DateTimeFormat("ru", { hour: "numeric", minute: "numeric" })
+        : new Intl.DateTimeFormat("ru", { day: "numeric", month: "numeric", year: "numeric" });
+
+      return formatter.format(created);
+    };
 
   },
   template: template

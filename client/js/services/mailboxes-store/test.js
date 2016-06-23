@@ -17,6 +17,25 @@ describe("MailboxesStore service", function() {
     MailboxesStore = _MailboxesStore_;
   }));
 
+  it("should set and get count", function() {
+    let fakeCount = {
+      "31313sf": 12,
+      "sdsdgs2": 2
+    };
+
+    MailboxesStore.setCount(fakeCount);
+
+    assert.strictEqual(MailboxesStore.getCountByMailbox("31313sf"), 12);
+    assert.strictEqual(MailboxesStore.getCountByMailbox("sdsdgs2"), 2);
+    assert.strictEqual(MailboxesStore.getCountByMailbox("undefined"), 0);
+  });
+
+  it("should clear count by mailboxid", function() {
+    MailboxesStore.clearCountByMailbox("31313sf");
+
+    assert.isNull(MailboxesStore.count["31313sf"]);
+  });
+
   it("should set data", function() {
     let testData = [1, 2, 3];
 
@@ -59,18 +78,6 @@ describe("MailboxesStore service", function() {
     MailboxesStore.resetSelection();
 
     assert.isNull(MailboxesStore.selected);
-  });
-
-  it("should return selected mailbox", function() {
-    let testMailbox  = {_id: "testId"};
-    let testData = [testMailbox, {}, {}];
-
-    MailboxesStore.set(testData);
-    MailboxesStore.resetSelection();
-
-    MailboxesStore.select(testMailbox._id);
-
-    assert.deepEqual(MailboxesStore.getCurrent(), testMailbox);
   });
 
 });

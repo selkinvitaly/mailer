@@ -14,7 +14,6 @@ import UsersApi from "../services/users-api";
 import AuthApi from "../services/auth-api";
 import Notify from "../services/notify";
 import ErrorHandler from "../services/error-handler";
-import LettersStore from "../services/letters-store";
 import MailboxesStore from "../services/mailboxes-store";
 import UsersStore from "../services/users-store";
 
@@ -55,7 +54,6 @@ app.factory("UsersApi", UsersApi);
 app.factory("Auth", AuthApi);
 app.factory("Notify", Notify);
 app.factory("ErrorHandler", ErrorHandler);
-app.factory("LettersStore", LettersStore);
 app.factory("MailboxesStore", MailboxesStore);
 app.factory("UsersStore", UsersStore);
 

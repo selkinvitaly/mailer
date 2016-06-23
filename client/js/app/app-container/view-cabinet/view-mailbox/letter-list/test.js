@@ -1,7 +1,11 @@
 "use strict";
 
 describe("letterList component", function() {
-  let componentController, componentElement, LettersStore, LettersApi;
+  let componentController, componentElement, LettersApi;
+  let fakeLetters = [];
+  let fakeIsEmpty = "empty";
+  let fakeIsSelected = function() {};
+  let fakeChooseHandler = function() {};
 
   angular.mock.module.sharedInjector();
 
@@ -11,64 +15,48 @@ describe("letterList component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($compile, $rootScope, _LettersStore_, _LettersApi_) {
+  before(angular.mock.inject(function($compile, $rootScope, _LettersApi_) {
     let parentScope = $rootScope.$new();
-    let element = angular.element(`<letter-list class="w-letters" />`);
+
+    parentScope.$ctrl = {
+      letters: fakeLetters,
+      isEmpty: fakeIsEmpty,
+      isSelected: fakeIsSelected,
+      chooseHandler: fakeChooseHandler
+    };
+
+    let element = angular.element(`<letter-list class="w-letters"
+      letters="$ctrl.letters"
+      is-empty="$ctrl.isEmpty"
+      is-selected="$ctrl.isSelected"
+      choose-handler="$ctrl.chooseHandler">
+    </letter-list>`);
     let compiledElement = $compile(element)(parentScope);
 
     componentController = compiledElement.isolateScope().$ctrl;
     componentElement = element;
-    LettersStore = _LettersStore_;
     LettersApi = _LettersApi_;
   }));
 
-  it("'fetchLetters' should fetch letters", function() {
-    sinon.stub(LettersStore, "getOffsetByPage").returns({ limit: 10, offset: 5 });
-    sinon.stub(LettersApi, "getByMailbox").returns({ then: function() {} });
-
-    componentController.fetchLetters();
-
-    assert.isTrue(LettersStore.getOffsetByPage.called);
-    assert.isTrue(LettersApi.getByMailbox.called);
-
-    LettersStore.getOffsetByPage.restore();
-    LettersApi.getByMailbox.restore();
+  it("should has bindings", function() {
+    assert.strictEqual(componentController.letters, fakeLetters);
+    assert.strictEqual(componentController.isEmpty, fakeIsEmpty);
+    assert.strictEqual(componentController.isSelected, fakeIsSelected);
+    assert.strictEqual(componentController.chooseHandler, fakeChooseHandler);
   });
 
-  it("'formatDate' should call LettersStore service", function() {
-    sinon.stub(LettersStore, "formatDate");
+  it("should format today date", function() {
+    let testDate = new Date();
+    let expectedMinutes = (testDate.getMinutes().toString().length === 2) && testDate.getMinutes() || "0" + testDate.getMinutes();
+    let expectedFormat = `${testDate.getHours()}:${expectedMinutes}`;
 
-    let fakeDate = new Date();
-
-    componentController.formatDate(fakeDate);
-
-    assert.isTrue(LettersStore.formatDate.calledWithExactly(fakeDate));
-
-    LettersStore.formatDate.restore();
+    assert.strictEqual(componentController.formatDate(testDate), expectedFormat);
   });
 
-  it("'isSelected' should call LettersStore service", function() {
-    sinon.stub(LettersStore, "isSelected");
+  it("should format not today date", function() {
+    let testDate = new Date(2000, 6, 20);
 
-    let fakeId = 123;
-
-    componentController.isSelected(fakeId);
-
-    assert.isTrue(LettersStore.isSelected.calledWithExactly(fakeId));
-
-    LettersStore.isSelected.restore();
-  });
-
-  it("'chooseHandler' should call LettersStore service", function() {
-    sinon.stub(LettersStore, "toggleSelect");
-
-    let fakeId = 123;
-
-    componentController.chooseHandler(fakeId);
-
-    assert.isTrue(LettersStore.toggleSelect.calledWithExactly(fakeId));
-
-    LettersStore.toggleSelect.restore();
+    assert.strictEqual(componentController.formatDate(testDate), "20.07.2000");
   });
 
 });

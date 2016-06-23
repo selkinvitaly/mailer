@@ -50,12 +50,12 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
               MailboxesStore.set(mailboxes);
             });
         },
-        count: function(LettersApi, LettersStore) {
+        count: function(LettersApi, MailboxesStore) {
           "ngInject";
 
           return LettersApi
             .count()
-            .then(count => LettersStore.setCount(count));
+            .then(count => MailboxesStore.setCount(count));
         }
       }
     })
@@ -105,12 +105,6 @@ export function run($transitions) {
     "ngInject";
 
     ErrorHandler.handle($error$);
-  });
-
-  $transitions.onFinish({ from: "cabinet.*" }, LettersStore => {
-    "ngInject";
-
-    LettersStore.deselectAll();
   });
 
 };

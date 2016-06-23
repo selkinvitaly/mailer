@@ -1,7 +1,7 @@
 "use strict";
 
 describe("widgetMailboxes component", function() {
-  let $rootScope, componentController, componentElement, LettersStore;
+  let $rootScope, componentController, componentElement, MailboxesStore;
 
   angular.mock.module.sharedInjector();
 
@@ -11,7 +11,7 @@ describe("widgetMailboxes component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($compile, _$rootScope_, _LettersStore_) {
+  before(angular.mock.inject(function($compile, _$rootScope_, _MailboxesStore_) {
     let parentScope = _$rootScope_.$new();
     let element = angular.element(`<widget-mailboxes class="w-mailboxes" />`);
     let compiledElement = $compile(element)(parentScope);
@@ -19,7 +19,7 @@ describe("widgetMailboxes component", function() {
     $rootScope = _$rootScope_;
     componentController = compiledElement.isolateScope().$ctrl;
     componentElement = element;
-    LettersStore = _LettersStore_;
+    MailboxesStore = _MailboxesStore_;
   }));
 
   it("should has method isSelected", function() {
@@ -36,16 +36,16 @@ describe("widgetMailboxes component", function() {
     $rootScope.$emit.restore();
   });
 
-  it("'getCountById' should call LettersStore service", function() {
-    sinon.stub(LettersStore, "getCountByMailbox");
+  it("'getCountById' should call MailboxesStore service", function() {
+    sinon.stub(MailboxesStore, "getCountByMailbox");
 
     let fakeId = "test";
 
     componentController.getCountById(fakeId);
 
-    assert.isTrue(LettersStore.getCountByMailbox.calledWithExactly(fakeId));
+    assert.isTrue(MailboxesStore.getCountByMailbox.calledWithExactly(fakeId));
 
-    LettersStore.getCountByMailbox.restore();
+    MailboxesStore.getCountByMailbox.restore();
   });
 
 });

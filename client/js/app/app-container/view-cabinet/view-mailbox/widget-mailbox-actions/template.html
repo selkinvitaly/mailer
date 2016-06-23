@@ -1,5 +1,5 @@
 <div class="w-mailbox-actions-cont">
-  <button title="Select all letters on this page!" class="w-mailbox-actions-choose" ng-click="$ctrl.selectHandler()" ng-class="{'w-mailbox-actions-choose_active': $ctrl.isSelectedAll}" ng-show="$ctrl.lettersExist" ng-disabled="$ctrl.loading">
+  <button title="Select all letters on this page!" class="w-mailbox-actions-choose" ng-click="$ctrl.selectHandler()" ng-class="{'w-mailbox-actions-choose_active': $ctrl.isSelectedAll}" ng-hide="$ctrl.isEmpty" ng-disabled="$ctrl.loading">
     <span class="w-mailbox-actions-choose__icn"></span>
   </button>
 
@@ -9,13 +9,13 @@
     </svg>
   </button>
 
-  <button title="Cleanup all letters into this mailbox!" ng-click="$ctrl.cleanupHandler()" class="w-mailbox-actions-cleanup" ng-disabled="$ctrl.loading" ng-show="$ctrl.lettersExist">
+  <button title="Cleanup all letters into this mailbox!" ng-click="$ctrl.cleanupHandler()" class="w-mailbox-actions-cleanup" ng-disabled="$ctrl.removing || $ctrl.loading" ng-hide="$ctrl.isEmpty">
     <svg class="w-mailbox-actions-cleanup__icn">
       <use xlink:href="assets/img/sprite.svg#clean"></use>
     </svg>
   </button>
 
-  <button title="Delete selected letters!" ng-click="$ctrl.removeHandler()" class="w-mailbox-actions-trash" ng-show="$ctrl.shownRemoveBtn" ng-disabled="$ctrl.removing">
+  <button title="Delete selected letters!" ng-click="$ctrl.removeHandler()" class="w-mailbox-actions-trash" ng-show="$ctrl.shownRemoveBtn" ng-disabled="$ctrl.removing || $ctrl.loading">
     <svg class="w-mailbox-actions-trash__icn">
       <use xlink:href="assets/img/sprite.svg#trash"></use>
     </svg>

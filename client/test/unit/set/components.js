@@ -9,6 +9,7 @@ import "app/app-container/view-cabinet/widget-logout/test";
 import "app/app-container/view-cabinet/view-user/test";
 import "app/app-container/view-cabinet/view-user/widget-user-actions/test";
 import "app/app-container/view-cabinet/view-user/user-details/test";
+import "app/app-container/view-cabinet/view-mailbox/test";
 import "app/app-container/view-cabinet/view-mailbox/widget-pager/test";
 import "app/app-container/view-cabinet/view-mailbox/widget-mailbox-actions/test";
 import "app/app-container/view-cabinet/view-mailbox/letter-list/test";

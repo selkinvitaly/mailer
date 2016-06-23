@@ -4,14 +4,14 @@ import template from "./template.html";
 import "./style.styl";
 
 export default {
-  controller: function(LettersApi, LettersStore, $stateParams, ErrorHandler) {
+  bindings: {
+    letters: "<",
+    isEmpty: "<",
+    isSelected: "<",
+    chooseHandler: "<"
+  },
+  controller: function(LettersApi) {
     "ngInject";
-
-    Object.defineProperty(this, "letters", {
-      get: function() {
-        return LettersStore.data;
-      }
-    });
 
     Object.defineProperty(this, "loading", {
       get: function() {
@@ -19,30 +19,18 @@ export default {
       }
     });
 
-    Object.defineProperty(this, "isEmpty", {
-      get: function() {
-        return !LettersStore.data.length;
-      }
-    });
+    this.formatDate = date => {
+      const ONE_DAY = 24 * 3600 * 1000;
 
-    this.formatDate = date => LettersStore.formatDate(date);
+      let created = new Date(date);
+      let now = new Date();
 
-    this.isSelected = id => LettersStore.isSelected(id);
+      let formatter = ((now - created) < ONE_DAY)
+        ? new Intl.DateTimeFormat("ru", { hour: "numeric", minute: "numeric" })
+        : new Intl.DateTimeFormat("ru", { day: "numeric", month: "numeric", year: "numeric" });
 
-    this.chooseHandler = id => LettersStore.toggleSelect(id);
-
-    this.fetchLetters = () => {
-      let boxid = $stateParams.mailboxid;
-      let page = $stateParams.page || 1;
-
-      let { limit, offset } = LettersStore.getOffsetByPage(page);
-
-      return LettersApi
-        .getByMailbox(boxid, offset, limit)
-        .then(letters => LettersStore.set(letters), err => ErrorHandler.handle(err));
+      return formatter.format(created);
     };
-
-    this.fetchLetters(); // init
 
   },
   template: template
