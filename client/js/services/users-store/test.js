@@ -39,4 +39,29 @@ describe("UsersStore service", function() {
     assert.strictEqual(UsersStore.formateBday(bday), "20.07.2016");
   });
 
+  it("should clear store", function() {
+    UsersStore.data = [1,2];
+    UsersStore.wasInitialFetch = true;
+    UsersStore.isFullyLoaded = true;
+    UsersStore.shownManualLoading = false;
+
+    UsersStore.clear();
+
+    assert.lengthOf(UsersStore.data, 0);
+    assert.isFalse(UsersStore.wasInitialFetch);
+    assert.isFalse(UsersStore.isFullyLoaded);
+    assert.isTrue(UsersStore.shownManualLoading);
+  });
+
+  it("should remove user", function() {
+    let testUser = { _id: "123" };
+
+    UsersStore.data = [testUser, {}];
+
+    UsersStore.remove("123");
+
+    assert.lengthOf(UsersStore.data, 1);
+    assert.lengthOf(UsersStore.data.filter(item => item._id === "123"), 0);
+  });
+
 });

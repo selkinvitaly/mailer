@@ -1,10 +1,10 @@
 <div class="cabinet-header">
-  <widget-user-actions class="w-user-actions"></widget-user-actions>
+  <widget-user-actions remove-handler="$ctrl.removeHandler($ctrl.user._id)" class="w-user-actions"></widget-user-actions>
 </div>
 
 <div class="cabinet-body">
   <cabinet-tabs class="w-tabs"></cabinet-tabs>
   <div class="cabinet-viewport">
-    <user-details class="user-details"></user-details>
+    <user-details user="$ctrl.user" class="user-details"></user-details>
   </div>
 </div>

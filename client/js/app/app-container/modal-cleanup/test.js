@@ -1,7 +1,7 @@
 "use strict";
 
 describe("modalCleanup component", function() {
-  let componentController, componentElement, MailboxesApi;
+  let componentController, componentElement, LettersApi;
 
   angular.mock.module.sharedInjector();
 
@@ -11,14 +11,14 @@ describe("modalCleanup component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($rootScope, $compile, _MailboxesApi_) {
+  before(angular.mock.inject(function($rootScope, $compile, _LettersApi_) {
     let parentScope = $rootScope.$new();
     let element = angular.element(`<modal-cleanup class="w-cleanup"></modal-cleanup>`);
     let compiledElement = $compile(element)(parentScope);
 
     componentController = compiledElement.isolateScope().$ctrl;
     componentElement = element;
-    MailboxesApi = _MailboxesApi_;
+    LettersApi = _LettersApi_;
   }));
 
   it("has methods and properties", function() {
@@ -44,14 +44,14 @@ describe("modalCleanup component", function() {
     assert.isFalse(componentElement.hasClass("w-cleanup_opened"));
   });
 
-  it("'yesHandler' should call MailboxesApi.cleanup", function() {
-    sinon.stub(MailboxesApi, "cleanup").returns({ then: function() {} });
+  it("'yesHandler' should call LettersApi service", function() {
+    sinon.stub(LettersApi, "cleanMailbox").returns({ then: function() {} });
 
     componentController.yesHandler();
 
-    assert.isTrue(MailboxesApi.cleanup.called);
+    assert.isTrue(LettersApi.cleanMailbox.called);
 
-    MailboxesApi.cleanup.restore();
+    LettersApi.cleanMailbox.restore();
   });
 
 });

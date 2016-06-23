@@ -1,7 +1,9 @@
 "use strict";
 
 describe("widgetLetterActions component", function() {
-  let componentController, componentElement, LettersApi;
+  let componentController, componentElement;
+  let fakeParentRemoveHandler = sinon.stub();
+  let fakeLetter = { _id: 123 };
 
   angular.mock.module.sharedInjector();
 
@@ -11,26 +13,25 @@ describe("widgetLetterActions component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($compile, $rootScope, _LettersApi_) {
+  before(angular.mock.inject(function($compile, $rootScope) {
     let parentScope = $rootScope.$new();
-    let element = angular.element(`<widget-letter-actions class="w-letter-actions" />`);
+
+    parentScope.$ctrl = {
+      letter: fakeLetter,
+      removeHandler: fakeParentRemoveHandler
+    };
+
+    let element = angular.element(`<widget-letter-actions remove-handler="$ctrl.removeHandler($ctrl.letter._id)" class="w-mailbox-actions" />`);
     let compiledElement = $compile(element)(parentScope);
 
     componentController = compiledElement.isolateScope().$ctrl;
     componentElement = element;
-    LettersApi = _LettersApi_;
   }));
 
-  it("'removeHandler' should call LettersApi service", function() {
-    sinon.stub(LettersApi, "removeById").returns({ then: function() {} });
+  it("'removeHandler' should call parent method", function() {
+    componentController.removeHandler();
 
-    let fakeId = 123;
-
-    componentController.removeHandler(fakeId);
-
-    assert.isTrue(LettersApi.removeById.calledWithExactly(fakeId));
-
-    LettersApi.removeById.restore();
+    assert.isTrue(fakeParentRemoveHandler.calledWithExactly(fakeLetter._id));
   });
 
 });

@@ -13,7 +13,10 @@ describe("UserDetails component", function() {
 
   before(angular.mock.inject(function($compile, $rootScope, _UsersStore_) {
     let parentScope = $rootScope.$new();
-    let element = angular.element(`<user-details class="user-details" />`);
+
+    parentScope.$ctrl = { user: {} };
+
+    let element = angular.element(`<user-details user="$ctrl.user" class="user-details" />`);
     let compiledElement = $compile(element)(parentScope);
 
     componentController = compiledElement.isolateScope().$ctrl;

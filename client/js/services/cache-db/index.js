@@ -64,11 +64,29 @@ export default function() {
     }
 
     remove(key) {
-      if (!isArray(key)) return delete this.data[key];
 
-      key.forEach(item => {
-        delete this.data[item];
-      });
+      if (isType(key, "array")) {
+
+        key.forEach(item => {
+          this.remove(item);
+        });
+
+      } else if (isType(key, "regexp")) {
+
+        for (let prop in this.data) {
+          if (!this.data.hasOwnProperty(prop) || !key.test(prop)) continue;
+
+          this.remove(prop);
+        }
+
+      } else {
+        delete this.data[key];
+      }
+
+    }
+
+    clear() {
+      this.data = {};
     }
 
     get(key) {
@@ -77,11 +95,11 @@ export default function() {
 
   }
 
-  function isArray(obj) {
+  function isType(obj, type) {
     return Object.prototype.toString
       .call(obj)
       .slice(8, -1)
-      .toLowerCase() === "array";
+      .toLowerCase() === type;
   }
 
   return new DB();

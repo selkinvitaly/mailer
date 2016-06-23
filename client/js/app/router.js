@@ -62,74 +62,37 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
     .state("cabinet.mailbox", {
       url: "/mailboxes/:mailboxid?page",
       template: `<view-mailbox class="v-mailbox" />`,
-      resolve: {
-        letters: function(LettersApi, MailboxesStore, LettersStore, $stateParams) {
-          "ngInject";
+      controller: function(MailboxesStore, $stateParams) {
+        "ngInject";
 
-          let boxid = $stateParams.mailboxid;
-          let page = $stateParams.page || 1;
-
-          let { limit, offset } = LettersStore.getOffsetByPage(page);
-
-          LettersStore.deselectAll();
-          MailboxesStore.select(boxid);
-
-          return LettersApi
-            .getByMailbox(boxid, offset, limit)
-            .then(letters => LettersStore.set(letters));
-        }
+        MailboxesStore.select($stateParams.mailboxid);
       }
     })
     .state("cabinet.letter", {
       url: "/mailboxes/:mailboxid/letters/:letterid",
       template: `<view-letter class="v-letter" />`,
-      resolve: {
-        letter: function(LettersApi, MailboxesStore, LetterDetailsStore, $stateParams) {
-          "ngInject";
+      controller: function(MailboxesStore, $stateParams) {
+        "ngInject";
 
-          let letterid = $stateParams.letterid;
-          let boxid = $stateParams.mailboxid;
-
-          MailboxesStore.select(boxid);
-
-          return LettersApi
-            .getById(letterid)
-            .then(letter => LetterDetailsStore.set(letter));
-        }
+        MailboxesStore.select($stateParams.mailboxid);
       }
     })
     .state("cabinet.contacts", {
       url: "/contacts",
       template: `<view-contacts class="v-contacts" />`,
-      resolve: {
-        letters: function(UsersApi, UsersStore, LettersStore, MailboxesStore) {
-          "ngInject";
+      controller: function(MailboxesStore) {
+        "ngInject";
 
-          MailboxesStore.resetSelection();
-          LettersStore.deselectAll();
-
-          return UsersApi
-            .getUsers(0, UsersStore.LIMIT)
-            .then(users => UsersStore.set(users));
-        }
+        MailboxesStore.resetSelection();
       }
-
     })
     .state("cabinet.user", {
       url: "/contacts/:userid",
       template: `<view-user class="v-user" />`,
-      resolve: {
-        letter: function(UsersApi, MailboxesStore, UserDetailsStore, $stateParams) {
-          "ngInject";
+      controller: function(MailboxesStore) {
+        "ngInject";
 
-          let userid = $stateParams.userid;
-
-          MailboxesStore.resetSelection();
-
-          return UsersApi
-            .getById(userid)
-            .then(users => UserDetailsStore.set(users));
-        }
+        MailboxesStore.resetSelection();
       }
     });
 
@@ -138,10 +101,16 @@ export function config($locationProvider, $stateProvider, $urlRouterProvider) {
 export function run($transitions) {
   "ngInject";
 
-  $transitions.onError({ to: "*" }, (ErrorHandler, $error$) => {
+  $transitions.onError({}, (ErrorHandler, $error$) => {
     "ngInject";
 
     ErrorHandler.handle($error$);
+  });
+
+  $transitions.onFinish({ from: "cabinet.*" }, LettersStore => {
+    "ngInject";
+
+    LettersStore.deselectAll();
   });
 
 };

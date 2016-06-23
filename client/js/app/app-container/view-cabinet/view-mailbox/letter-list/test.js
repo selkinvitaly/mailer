@@ -1,7 +1,7 @@
 "use strict";
 
 describe("letterList component", function() {
-  let componentController, componentElement, LettersStore;
+  let componentController, componentElement, LettersStore, LettersApi;
 
   angular.mock.module.sharedInjector();
 
@@ -11,7 +11,7 @@ describe("letterList component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($compile, $rootScope, _LettersStore_) {
+  before(angular.mock.inject(function($compile, $rootScope, _LettersStore_, _LettersApi_) {
     let parentScope = $rootScope.$new();
     let element = angular.element(`<letter-list class="w-letters" />`);
     let compiledElement = $compile(element)(parentScope);
@@ -19,7 +19,21 @@ describe("letterList component", function() {
     componentController = compiledElement.isolateScope().$ctrl;
     componentElement = element;
     LettersStore = _LettersStore_;
+    LettersApi = _LettersApi_;
   }));
+
+  it("'fetchLetters' should fetch letters", function() {
+    sinon.stub(LettersStore, "getOffsetByPage").returns({ limit: 10, offset: 5 });
+    sinon.stub(LettersApi, "getByMailbox").returns({ then: function() {} });
+
+    componentController.fetchLetters();
+
+    assert.isTrue(LettersStore.getOffsetByPage.called);
+    assert.isTrue(LettersApi.getByMailbox.called);
+
+    LettersStore.getOffsetByPage.restore();
+    LettersApi.getByMailbox.restore();
+  });
 
   it("'formatDate' should call LettersStore service", function() {
     sinon.stub(LettersStore, "formatDate");

@@ -1,5 +1,5 @@
 <div class="w-mailbox-actions-cont">
-  <button title="Select all letters on this page!" class="w-mailbox-actions-choose" ng-click="$ctrl.selectHandler()" ng-class="{'w-mailbox-actions-choose_active': $ctrl.isSelectedAll}" ng-show="$ctrl.lettersExist">
+  <button title="Select all letters on this page!" class="w-mailbox-actions-choose" ng-click="$ctrl.selectHandler()" ng-class="{'w-mailbox-actions-choose_active': $ctrl.isSelectedAll}" ng-show="$ctrl.lettersExist" ng-disabled="$ctrl.loading">
     <span class="w-mailbox-actions-choose__icn"></span>
   </button>
 

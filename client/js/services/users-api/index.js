@@ -12,7 +12,7 @@ export default function($http, $q, CacheDB) {
     }
 
     getById(userid) {
-      const CACHE_KEY = `users:${userid}`;
+      const CACHE_KEY = `user-by-id:${userid}`;
 
       let Model = CacheDB.get(CACHE_KEY);
 
@@ -53,14 +53,13 @@ export default function($http, $q, CacheDB) {
     }
 
     removeById(userid) {
-      const CACHE_KEY = `users:${userid}`;
-
       this.removing = true;
 
       return $http.delete(`${BASE_API}/users/${userid}`)
         .then(res => {
           this.removing = false;
-          CacheDB.remove(CACHE_KEY);
+
+          CacheDB.remove(`user-by-id:${userid}`);
         }, err => {
           this.removing = false;
 

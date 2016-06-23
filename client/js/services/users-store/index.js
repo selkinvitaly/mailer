@@ -7,7 +7,7 @@ export default function() {
     constructor() {
       this.LIMIT = 15;
 
-      this.data = [];
+      this.clear();
     }
 
     set(items) {
@@ -16,6 +16,24 @@ export default function() {
 
     add(itemsArray) {
       Array.prototype.push.apply(this.data, itemsArray);
+    }
+
+    remove(userid) {
+      let data = this.data;
+
+      for (let i = 0; i < data.length; i++) {
+        if (data[i]._id !== userid) continue;
+
+        data.splice(i, 1);
+        return;
+      }
+    }
+
+    clear() {
+      this.data = [];
+      this.wasInitialFetch = false;
+      this.isFullyLoaded = false;
+      this.shownManualLoading = true;
     }
 
     formateBday(date) {

@@ -1,6 +1,6 @@
 <div class="w-letters-cont">
 
-  <p class="w-letters__empty" ng-show="$ctrl.isEmpty">Letters not found! :(</p>
+  <p class="w-letters__empty" ng-show="!$ctrl.loading && $ctrl.isEmpty">Letters not found! :(</p>
   <p class="w-letters__loader" ng-show="$ctrl.loading">Retrieving letters...</p>
 
   <ul class="w-letters-lst" ng-hide="$ctrl.isEmpty || $ctrl.loading">

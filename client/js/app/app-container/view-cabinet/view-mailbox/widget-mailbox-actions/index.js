@@ -5,7 +5,7 @@ import "./style.styl";
 
 export default {
   template: template,
-  controller: function(Notify, ErrorHandler, LettersApi, LettersStore, $state, $rootScope) {
+  controller: function(Notify, ErrorHandler, LettersApi, LettersStore, $state, $rootScope, CacheDB) {
     "ngInject";
 
     Object.defineProperty(this, "isSelectedAll", {
@@ -39,6 +39,7 @@ export default {
     });
 
     this.refreshHandler = () => {
+      CacheDB.clear();
       $state.reload();
     };
 
@@ -55,8 +56,6 @@ export default {
 
       LettersApi.removeMoreById(selected)
         .then(removedIds => {
-
-          LettersStore.deselectAll()
 
           Notify.add("Removed!");
 

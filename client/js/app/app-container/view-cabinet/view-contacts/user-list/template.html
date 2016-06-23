@@ -31,4 +31,5 @@
   <button ng-show="($ctrl.users.length >= $ctrl.limit) && $ctrl.shownManualLoading" ng-click="$ctrl.startLazyLoading()" class="w-users__more">Load more</button>
 
   <p class="w-users__loader" ng-show="$ctrl.loading">Retrieving...</p>
+  <p class="w-users__empty" ng-show="!$ctrl.loading && $ctrl.isEmpty">Sorry, users not found!</p>
 </div>

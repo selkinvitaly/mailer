@@ -5,7 +5,10 @@ import "./style.styl";
 
 export default {
   template: template,
-  controller: function(Notify, ErrorHandler, LettersApi, MailboxesStore, $state, LetterDetailsStore) {
+  bindings: {
+    removeHandler: "&"
+  },
+  controller: function(LettersApi) {
     "ngInject";
 
     Object.defineProperty(this, "removing", {
@@ -14,25 +17,11 @@ export default {
       }
     });
 
-    Object.defineProperty(this, "letter", {
+    Object.defineProperty(this, "loading", {
       get: function() {
-        return LetterDetailsStore.data;
+        return LettersApi.loading;
       }
     });
-
-    this.removeHandler = id => LettersApi
-      .removeById(id)
-      .then(() => {
-        let mailboxid = MailboxesStore.selected;
-
-        LetterDetailsStore.clear();
-
-        Notify.add("Removed!");
-
-        $state.go("cabinet.mailbox", { mailboxid:  mailboxid, page: null }, { reload: true });
-      }, err => {
-        ErrorHandler.handle(err);
-      });
 
   }
 };

@@ -16,9 +16,7 @@ import Notify from "../services/notify";
 import ErrorHandler from "../services/error-handler";
 import LettersStore from "../services/letters-store";
 import MailboxesStore from "../services/mailboxes-store";
-import LetterDetailsStore from "../services/letter-details-store";
 import UsersStore from "../services/users-store";
-import UserDetailsStore from "../services/user-details-store";
 
 // components
 import appContainerComponent from "./app-container";
@@ -59,9 +57,7 @@ app.factory("Notify", Notify);
 app.factory("ErrorHandler", ErrorHandler);
 app.factory("LettersStore", LettersStore);
 app.factory("MailboxesStore", MailboxesStore);
-app.factory("LetterDetailsStore", LetterDetailsStore);
 app.factory("UsersStore", UsersStore);
-app.factory("UserDetailsStore", UserDetailsStore);
 
 app.component("appContainer", appContainerComponent);
 app.component("notifyList", notifyListComponent);

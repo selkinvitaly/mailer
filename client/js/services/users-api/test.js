@@ -24,24 +24,11 @@ describe("UsersApi service", function() {
 
     beforeEach(angular.mock.inject(function(_$httpBackend_) {
       $httpBackend = _$httpBackend_;
-      $httpBackend.whenGET(`${baseApi}/users/${testId}`).respond(200, { data: "ok" });
     }));
 
     afterEach(function() {
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
-    });
-
-    it("should fetch user from server", function() {
-      sinon.stub(CacheDB, "get").returns(undefined); // not cached
-
-      UsersApi.getById(testId);
-
-      $httpBackend.expectGET(`${baseApi}/users/${testId}`);
-
-      $httpBackend.flush();
-
-      CacheDB.get.restore();
     });
 
     it("should fetch user from cache", function() {
@@ -57,9 +44,8 @@ describe("UsersApi service", function() {
     it("should change 'loading' flag", function() {
       sinon.stub(CacheDB, "get").returns(undefined); // not cached
 
+      $httpBackend.expectGET(`${baseApi}/users/${testId}`).respond(200, { data: "ok" });
       UsersApi.getById(testId);
-
-      $httpBackend.expectGET(`${baseApi}/users/${testId}`);
 
       assert.isTrue(UsersApi.loading);
       $httpBackend.flush();
@@ -67,6 +53,20 @@ describe("UsersApi service", function() {
       assert.isFalse(UsersApi.loading);
 
       CacheDB.get.restore();
+    });
+
+    it("should put in the cache", function() {
+      sinon.stub(CacheDB, "get").returns(undefined); // not cached
+      sinon.stub(CacheDB, "add");
+
+      $httpBackend.expectGET(`${baseApi}/users/${testId}`).respond(200, { data: "ok" });
+      UsersApi.getById(testId);
+
+      $httpBackend.flush();
+      assert.isTrue(CacheDB.add.called);
+
+      CacheDB.get.restore();
+      CacheDB.add.restore();
     });
 
   });
@@ -117,6 +117,17 @@ describe("UsersApi service", function() {
       $httpBackend.flush();
 
       assert.isFalse(UsersApi.removing);
+    });
+
+    it("should remove from the cache", function() {
+      sinon.stub(CacheDB, "remove");
+
+      UsersApi.removeById(testId);
+
+      $httpBackend.flush();
+      assert.isTrue(CacheDB.remove.called);
+
+      CacheDB.remove.restore();
     });
 
   });

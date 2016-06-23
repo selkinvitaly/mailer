@@ -7,7 +7,38 @@ export default {
   controller: function(ErrorHandler, UsersApi, UsersStore, $window, $element) {
     "ngInject";
 
-    this.shownManualLoading = true;
+    this.$onDestroy = () => {
+      $window.removeEventListener("scroll", this.scrollHandler);
+
+      !this.isFullyLoaded && (this.shownManualLoading = true);
+    };
+
+    Object.defineProperty(this, "shownManualLoading", {
+      get: function() {
+        return UsersStore.shownManualLoading;
+      },
+      set: function(bool) {
+        UsersStore.shownManualLoading = bool;
+      }
+    });
+
+    Object.defineProperty(this, "isFullyLoaded", {
+      get: function() {
+        return UsersStore.isFullyLoaded;
+      },
+      set: function(bool) {
+        UsersStore.isFullyLoaded = bool;
+      }
+    });
+
+    Object.defineProperty(this, "wasInitialFetch", {
+      get: function() {
+        return UsersStore.wasInitialFetch;
+      },
+      set: function(bool) {
+        UsersStore.wasInitialFetch = bool;
+      }
+    });
 
     Object.defineProperty(this, "loading", {
       get: function() {
@@ -18,6 +49,12 @@ export default {
     Object.defineProperty(this, "users", {
       get: function() {
         return UsersStore.data;
+      }
+    });
+
+    Object.defineProperty(this, "isEmpty", {
+      get: function() {
+        return !UsersStore.data.length;
       }
     });
 
@@ -65,6 +102,7 @@ export default {
       $window.removeEventListener("scroll", this.scrollHandler);
 
       this.shownManualLoading = false;
+      this.isFullyLoaded = true;
     };
 
     this.abortLazyLoading = () => {
@@ -83,7 +121,19 @@ export default {
       this.scrollHandler();
     };
 
+    this.initialFetch = () => {
+      return UsersApi
+        .getUsers(0, this.limit)
+        .then(users => {
+          this.wasInitialFetch = true;
+
+          UsersStore.set(users);
+        }, err => ErrorHandler.handle(err));
+    };
+
     this.formatBday = date => UsersStore.formateBday(date);
+
+    !this.wasInitialFetch && this.initialFetch(); // init
 
   },
   template: template

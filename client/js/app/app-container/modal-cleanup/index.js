@@ -5,12 +5,12 @@ import "./style.styl";
 
 export default {
   template: template,
-  controller: function(MailboxesApi, ErrorHandler, MailboxesStore, Notify, LettersStore, $element, $state, $rootScope) {
+  controller: function(LettersApi, ErrorHandler, MailboxesStore, Notify, LettersStore, $element, $state, $rootScope) {
     "ngInject";
 
     Object.defineProperty(this, "removing", {
       get: function() {
-        return MailboxesApi.removing;
+        return LettersApi.removing;
       }
     });
 
@@ -31,10 +31,9 @@ export default {
     this.yesHandler = () => {
       let selected = MailboxesStore.selected;
 
-      MailboxesApi.cleanup(selected)
+      LettersApi.cleanMailbox(selected)
         .then(() => {
 
-          LettersStore.deselectAll();
           LettersStore.removeAll(selected);
           this.close();
           Notify.add("The mailbox was successfully cleaned!");

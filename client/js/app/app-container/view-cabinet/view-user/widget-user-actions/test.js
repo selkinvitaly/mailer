@@ -2,6 +2,8 @@
 
 describe("widgetUserActions component", function() {
   let componentController, componentElement, UsersApi;
+  let fakeParentRemoveHandler = sinon.stub();
+  let fakeUser = { _id: 123 };
 
   angular.mock.module.sharedInjector();
 
@@ -13,7 +15,13 @@ describe("widgetUserActions component", function() {
 
   before(angular.mock.inject(function($compile, $rootScope, _UsersApi_) {
     let parentScope = $rootScope.$new();
-    let element = angular.element(`<widget-user-actions class="w-user-actions" />`);
+
+    parentScope.$ctrl = {
+      removeHandler: fakeParentRemoveHandler,
+      user: fakeUser
+    };
+
+    let element = angular.element(`<widget-user-actions remove-handler="$ctrl.removeHandler($ctrl.user._id)" class="w-user-actions" />`);
     let compiledElement = $compile(element)(parentScope);
 
     componentController = compiledElement.isolateScope().$ctrl;
@@ -21,16 +29,10 @@ describe("widgetUserActions component", function() {
     UsersApi = _UsersApi_;
   }));
 
-  it("'removeHandler' should call UsersApi service", function() {
-    sinon.stub(UsersApi, "removeById").returns({ then: function() {} });
+  it("'removeHandler' should call parent method", function() {
+    componentController.removeHandler();
 
-    let fakeId = 123;
-
-    componentController.removeHandler(fakeId);
-
-    assert.isTrue(UsersApi.removeById.calledWithExactly(fakeId));
-
-    UsersApi.removeById.restore();
+    assert.isTrue(fakeParentRemoveHandler.calledWithExactly(fakeUser._id));
   });
 
 });

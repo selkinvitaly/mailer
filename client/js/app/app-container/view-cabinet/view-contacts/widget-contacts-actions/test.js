@@ -1,7 +1,7 @@
 "use strict";
 
 describe("widgetContactsActions component", function() {
-  let $state, componentController, componentElement;
+  let $state, componentController, componentElement, CacheDB, UsersStore;
 
   angular.mock.module.sharedInjector();
 
@@ -11,7 +11,7 @@ describe("widgetContactsActions component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($compile, $rootScope, _$state_) {
+  before(angular.mock.inject(function($compile, $rootScope, _$state_, _CacheDB_, _UsersStore_) {
     let parentScope = $rootScope.$new();
     let element = angular.element(`<widget-contacts-actions class="w-contacts-actions" />`);
     let compiledElement = $compile(element)(parentScope);
@@ -19,6 +19,8 @@ describe("widgetContactsActions component", function() {
     componentController = compiledElement.isolateScope().$ctrl;
     componentElement = element;
     $state = _$state_;
+    UsersStore = _UsersStore_;
+    CacheDB = _CacheDB_;
   }));
 
   it("'refreshHandler' should reload state", function() {
@@ -29,6 +31,18 @@ describe("widgetContactsActions component", function() {
     assert.isTrue($state.reload.called);
 
     $state.reload.restore();
+  });
+
+  it("'refreshHandler' should clear cache and store", function() {
+    sinon.stub(UsersStore, "clear");
+    sinon.stub(CacheDB, "clear");
+
+    componentController.refreshHandler();
+
+    assert.isTrue(UsersStore.clear.called);
+
+    UsersStore.clear.restore();
+    CacheDB.clear.restore();
   });
 
 });

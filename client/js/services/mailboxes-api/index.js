@@ -36,21 +36,6 @@ export default function($http, $q, CacheDB) {
         });
     }
 
-    cleanup(boxid) {
-      this.removing = true;
-
-      return $http.delete(`${BASE_API}/mailboxes/${boxid}/letters`)
-        .then(res => {
-          this.removing = false;
-
-          return res.data;
-        }, err => {
-          this.removing = false;
-
-          throw err;
-        });
-    }
-
   }
 
   return new API();

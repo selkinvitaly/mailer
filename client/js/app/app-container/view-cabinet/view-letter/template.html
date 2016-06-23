@@ -1,10 +1,10 @@
 <div class="cabinet-header">
-  <widget-letter-actions class="w-mailbox-actions"></widget-letter-actions>
+  <widget-letter-actions remove-handler="$ctrl.removeHandler($ctrl.letter._id)" class="w-mailbox-actions"></widget-letter-actions>
 </div>
 
 <div class="cabinet-body">
   <cabinet-tabs class="w-tabs"></cabinet-tabs>
   <div class="cabinet-viewport">
-    <letter-details class="letter-details"></letter-details>
+    <letter-details class="letter-details" letter="$ctrl.letter"></letter-details>
   </div>
 </div>

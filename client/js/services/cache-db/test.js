@@ -26,30 +26,6 @@ describe("CacheDB service", function() {
     assert.strictEqual(CacheDB.get(KEY).data, VAL);
   });
 
-  it("should remove the saved value", function() {
-    let KEY = "TEST_SAVED";
-
-    CacheDB.remove(KEY);
-
-    assert.isUndefined(CacheDB.get(KEY));
-  });
-
-  it("should remove more then one value", function() {
-    let KEY1 = "TEST_REMOVE1";
-    let KEY2 = "TEST_REMOVE2";
-    let VAL1 = "TEST_REMOVE1_V";
-    let VAL2 = "TEST_REMOVE2_V";
-
-    CacheDB.add(KEY1, VAL1);
-    CacheDB.add(KEY2, VAL2);
-
-    CacheDB.remove([KEY1, KEY2]);
-
-    assert.isUndefined(CacheDB.get(KEY1));
-    assert.isUndefined(CacheDB.get(KEY2));
-
-  });
-
   it("should return model", function() {
     let KEY = "TEST_MODEL";
     let VAL = "TEST_MODEL_V";
@@ -76,6 +52,39 @@ describe("CacheDB service", function() {
     let actualTime = CacheDB.get(KEY).lastLoadTime.valueOf();
 
     assert.approximately(actualTime, expectedTime, inaccurancy);
+  });
+
+  context("method 'remove'", function() {
+    let KEY, KEY2, VAL, VAL2;
+
+    beforeEach(function() {
+      KEY = "REMOVE-BY-STR";
+      VAL = "OOPS";
+      KEY2 = "REMOVE-BY-STR2";
+      VAL2 = "OOPS2";
+
+      CacheDB.add(KEY, VAL);
+    });
+
+    it("should remove by string key", function() {
+      CacheDB.remove(KEY);
+
+      assert.isUndefined(CacheDB.get(KEY));
+    });
+
+    it("should remove by regexp key", function() {
+      CacheDB.remove(/^REMOVE-BY/);
+
+      assert.isUndefined(CacheDB.get(KEY));
+    });
+
+    it("should remove more then one value", function() {
+      CacheDB.remove([KEY, /BY-STR2$/]);
+
+      assert.isUndefined(CacheDB.get(KEY));
+      assert.isUndefined(CacheDB.get(KEY2));
+    });
+
   });
 
   context("method 'isOlderThan'", function() {
@@ -144,26 +153,26 @@ describe("CacheDB service", function() {
       assert.isFalse(model.hasBeen("5m"));
     });
 
-    it("should return true after 5 seconds", function() {
+    it("should return true after 30 seconds", function() {
       let model = CacheDB.get(KEY);
-      let delta = 6 * 1000; // 6 sec
+      let delta = 40 * 1000; // 40 sec
 
       let pastTime = new Date(model.lastLoadTime.valueOf() - delta);
 
       model.lastLoadTime = pastTime; // rewrite to older time
 
-      assert.isTrue(model.hasBeen("5s"));
+      assert.isTrue(model.hasBeen("30s"));
     });
 
-    it("should return false before 5 seconds", function() {
+    it("should return false before 30 seconds", function() {
       let model = CacheDB.get(KEY);
-      let delta = 3 * 1000; // 3 sec
+      let delta = 15 * 1000; // 15 sec
 
       let pastTime = new Date(model.lastLoadTime.valueOf() - delta);
 
       model.lastLoadTime = pastTime; // rewrite to older time
 
-      assert.isFalse(model.hasBeen("5s"));
+      assert.isFalse(model.hasBeen("15s"));
     });
 
     it("should return true after 5 hours", function() {

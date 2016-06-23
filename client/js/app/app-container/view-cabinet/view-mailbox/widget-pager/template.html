@@ -5,12 +5,12 @@
       <strong>{{$ctrl.range}}</strong> of <strong>{{$ctrl.total}}</strong>
     </span>
   </span>
-  <button class="w-pager-prev" ng-click="$ctrl.prevHandler()" ng-disabled="$ctrl.prevIsDisabled">
+  <button class="w-pager-prev" ng-click="$ctrl.prevHandler()" ng-disabled="$ctrl.loading || $ctrl.prevIsDisabled">
     <svg class="w-pager-prev__icn">
       <use xlink:href="assets/img/sprite.svg#next"></use>
     </svg>
   </button>
-  <button class="w-pager-next" ng-click="$ctrl.nextHandler()" ng-disabled="$ctrl.nextIsDisabled">
+  <button class="w-pager-next" ng-click="$ctrl.nextHandler()" ng-disabled="$ctrl.loading || $ctrl.nextIsDisabled">
     <svg class="w-pager-next__icn">
       <use xlink:href="assets/img/sprite.svg#next"></use>
     </svg>

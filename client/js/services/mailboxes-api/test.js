@@ -54,29 +54,18 @@ describe("MailboxesApi service", function() {
       CacheDB.get.restore();
     });
 
-  });
+    it("should put in the cache", function() {
+      sinon.stub(CacheDB, "get").returns(undefined); // not cached
+      sinon.stub(CacheDB, "add");
 
-  context("method 'cleanup'", function() {
-    let $httpBackend;
-    let testBoxid = "1erwtsfs1241";
+      $httpBackend.expectGET(`${baseApi}/mailboxes`).respond(200, { data: "ok" });
+      MailboxesApi.getAll();
 
-    beforeEach(angular.mock.inject(function(_$httpBackend_) {
-      $httpBackend = _$httpBackend_;
-      $httpBackend.expectDELETE(`${baseApi}/mailboxes/${testBoxid}/letters`).respond(200, { data: "ok" });
-    }));
-
-    afterEach(function() {
-      $httpBackend.verifyNoOutstandingExpectation();
-      $httpBackend.verifyNoOutstandingRequest();
-    });
-
-    it("should change 'removing' flag", function() {
-      MailboxesApi.cleanup(testBoxid);
-
-      assert.isTrue(MailboxesApi.removing);
       $httpBackend.flush();
+      assert.isTrue(CacheDB.add.called);
 
-      assert.isFalse(MailboxesApi.removing);
+      CacheDB.get.restore();
+      CacheDB.add.restore();
     });
 
   });

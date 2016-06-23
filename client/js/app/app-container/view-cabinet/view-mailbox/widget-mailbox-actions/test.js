@@ -1,7 +1,7 @@
 "use strict";
 
 describe("widgetMailboxActions component", function() {
-  let $rootScope, $state, componentController, componentElement, LettersStore, LettersApi;
+  let $rootScope, $state, componentController, componentElement, LettersStore, LettersApi, CacheDB;
 
   angular.mock.module.sharedInjector();
 
@@ -11,7 +11,7 @@ describe("widgetMailboxActions component", function() {
     $urlRouterProvider.deferIntercept();
   }));
 
-  before(angular.mock.inject(function($compile, _$rootScope_, _$state_, _LettersStore_, _LettersApi_) {
+  before(angular.mock.inject(function($compile, _$rootScope_, _$state_, _LettersStore_, _LettersApi_, _CacheDB_) {
     let parentScope = _$rootScope_.$new();
     let element = angular.element(`<widget-mailbox-actions class="w-mailbox-actions" />`);
     let compiledElement = $compile(element)(parentScope);
@@ -22,6 +22,7 @@ describe("widgetMailboxActions component", function() {
     componentElement = element;
     LettersStore = _LettersStore_;
     LettersApi = _LettersApi_;
+    CacheDB = _CacheDB_;
   }));
 
   it("'selectHandler' should call LettersStore service", function() {
@@ -34,14 +35,17 @@ describe("widgetMailboxActions component", function() {
     LettersStore.toggleAll.restore();
   });
 
-  it("'refreshHandler' should reload state", function() {
+  it("'refreshHandler' should reload state and clear cache", function() {
     sinon.stub($state, "reload");
+    sinon.stub(CacheDB, "clear");
 
     componentController.refreshHandler();
 
     assert.isTrue($state.reload.called);
+    assert.isTrue(CacheDB.clear.called);
 
     $state.reload.restore();
+    CacheDB.clear.restore();
   });
 
   it("'cleanupHandler' should emit event", function() {

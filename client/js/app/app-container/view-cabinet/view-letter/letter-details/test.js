@@ -13,7 +13,10 @@ describe("letterDetails component", function() {
 
   before(angular.mock.inject(function($compile, $rootScope, _LettersStore_) {
     let parentScope = $rootScope.$new();
-    let element = angular.element(`<letter-details class="letter-details" />`);
+
+    parentScope.$ctrl = { letter: {} };
+
+    let element = angular.element(`<letter-details class="letter-details" letter="$ctrl.letter" />`);
     let compiledElement = $compile(element)(parentScope);
 
     componentController = compiledElement.isolateScope().$ctrl;

@@ -5,7 +5,10 @@ import "./style.styl";
 
 export default {
   template: template,
-  controller: function(Notify, ErrorHandler, UsersApi, $state, UserDetailsStore) {
+  bindings: {
+    removeHandler: "&"
+  },
+  controller: function(UsersApi, UsersStore) {
     "ngInject";
 
     Object.defineProperty(this, "removing", {
@@ -14,24 +17,11 @@ export default {
       }
     });
 
-    Object.defineProperty(this, "user", {
+    Object.defineProperty(this, "loading", {
       get: function() {
-        return UserDetailsStore.data;
+        return UsersApi.loading;
       }
     });
-
-    this.removeHandler = id => UsersApi
-      .removeById(id)
-      .then(() => {
-        UserDetailsStore.clear();
-
-        Notify.add("Removed!");
-
-        $state.go("cabinet.contacts", { reload: true });
-      }, err => {
-
-        ErrorHandler.handle(err);
-      });
 
   }
 };

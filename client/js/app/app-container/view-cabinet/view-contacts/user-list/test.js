@@ -27,18 +27,18 @@ describe("userList component", function() {
     assert.isFunction(componentController._getPositionBottomEdgeElem);
     assert.isFunction(componentController._getPositionBottomEdgeViewport);
     assert.isFunction(componentController.startLazyLoading);
+    assert.isFunction(componentController.scrollHandler);
+    assert.isFunction(componentController.initialFetch);
   });
 
-  it("'scrollHandler' should call UsersApi service", function() {
-    sinon.stub(UsersApi, "getUsers").returns({ then: function() {} });
+  it("'$onDestroy' hook should remove event listener", function() {
+    sinon.stub($window, "removeEventListener");
 
-    let fakeEvent = {};
+    componentController.$onDestroy();
 
-    componentController.scrollHandler(fakeEvent);
+    assert.isTrue($window.removeEventListener.calledWithExactly("scroll", componentController.scrollHandler));
 
-    assert.isTrue(UsersApi.getUsers.called);
-
-    UsersApi.getUsers.restore();
+    $window.removeEventListener.restore();
   });
 
   it("'finishLazyLoading' should remove event listener", function() {

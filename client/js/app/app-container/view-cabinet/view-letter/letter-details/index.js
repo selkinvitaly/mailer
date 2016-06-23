@@ -4,14 +4,11 @@ import template from "./template.html";
 import "./style.styl";
 
 export default {
-  controller: function(LettersApi, LetterDetailsStore, LettersStore) {
+  bindings: {
+    letter: "<"
+  },
+  controller: function(LettersApi, LettersStore) {
     "ngInject";
-
-    Object.defineProperty(this, "letter", {
-      get: function() {
-        return LetterDetailsStore.data;
-      }
-    });
 
     Object.defineProperty(this, "loading", {
       get: function() {

@@ -5,10 +5,18 @@ import "./style.styl";
 
 export default {
   template: template,
-  controller: function($state) {
+  controller: function($state, UsersApi, CacheDB, UsersStore) {
     "ngInject";
 
+    Object.defineProperty(this, "loading", {
+      get: function() {
+        return UsersApi.loading;
+      }
+    });
+
     this.refreshHandler = () => {
+      CacheDB.clear();
+      UsersStore.clear();
       $state.reload();
     };
 
