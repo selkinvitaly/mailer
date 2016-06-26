@@ -21,7 +21,7 @@ module.exports = function(root) {
     context: root,
     entry: {
       app: ["./client/js/index.js"],
-      vendor: ["angular"]
+      vendor: ["angular", "angular-ui-router"]
     },
     output: {
       path: path.join(root, "./server/public/assets/js/"),
@@ -31,7 +31,7 @@ module.exports = function(root) {
       pathinfo: !isDeploy
     },
     debug: isWatch,
-    devtool: isWatch ? "#inline-source-map" : null,
+    devtool: isWatch ? "inline-source-map" : null,
     resolve: {
       modules: [ root, "node_modules" ],
       extensions: [".js"],
